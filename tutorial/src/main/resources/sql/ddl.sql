@@ -25,6 +25,9 @@ CREATE TABLE mst_user (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+SELECT * FROM mst_user;
+ALTER TABLE mst_user ADD COLUMN mail_adress VARCHAR NOT NULL;
+
 CREATE TABLE mst_category (
   id SERIAL PRIMARY KEY,
   category_name VARCHAR(255) NOT NULL UNIQUE,
