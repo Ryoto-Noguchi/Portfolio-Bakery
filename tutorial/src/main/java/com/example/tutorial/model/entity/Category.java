@@ -41,6 +41,6 @@ public class Category implements Serializable {
   @Column(name = "updated_at")
 	private Timestamp updatedAt;
 
-  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) // mappedByには所有側の持つこのエンティティのインスタンス名をいれる
   private List<Product> productList;
 }

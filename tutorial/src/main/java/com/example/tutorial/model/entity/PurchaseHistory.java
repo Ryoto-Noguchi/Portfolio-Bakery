@@ -2,13 +2,19 @@ package com.example.tutorial.model.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 import lombok.Data;
 
@@ -48,5 +54,17 @@ public class PurchaseHistory implements Serializable {
   private Timestamp createdAt;
 
   @Column(name = "upated_at")
-	private Timestamp updatedAt;
+  private Timestamp updatedAt;
+
+  @ManyToMany(mappedBy = "purchaseHistoryList")
+  private List<Product> productList;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "destination_id")
+  private Destination destination;
+
 }

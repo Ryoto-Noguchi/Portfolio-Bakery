@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,10 +62,13 @@ public class Product implements Serializable {
   @Column(name = "updated_at")
   private Timestamp updatedAt;
 
-  @ManyToOne
-  @JoinColumn(name = "id", insertable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY) // One-To-Many/Many-To-Oneの関係ではMany側が所有側になる
+  @JoinColumn(name = "category_id", insertable = false, updatable = false) //@JoinColumnアノテーションは所有側に定義される。nameにはOne側と結合する際に必要となるカラム名をいれる。これを入力したら、One(被所有側)にmappedByをつける
   private Category category;
 
-  @ManyToMany
-  private List<Cart> cart;
+  @ManyToMany(cascade = CascadeType.ALL)
+  private List<Cart> cartList;
+
+  @ManyToMany(cascade = CascadeType.ALL)
+  private List<PurchaseHistory> purchaseHistoryList;
 }
