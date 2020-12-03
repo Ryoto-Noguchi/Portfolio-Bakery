@@ -12,11 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tbl_cart")
-@Data
+@Getter @Setter
 public class Cart implements Serializable{
   private static final long serialVersionUID = -4731172952052584718L;
 

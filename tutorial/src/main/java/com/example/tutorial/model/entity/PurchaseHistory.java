@@ -15,12 +15,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tbl_purchase_hitory")
-@Data
+@Getter @Setter
 public class PurchaseHistory implements Serializable {
   private static final long serialVersionUID = -514891244709797659L;
 

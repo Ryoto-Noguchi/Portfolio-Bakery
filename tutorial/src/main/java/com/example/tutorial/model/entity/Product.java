@@ -16,12 +16,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import com.example.tutorial.model.session.SearchSession;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "mst_product")
-@Data
+@Getter @Setter @NoArgsConstructor
 public class Product implements Serializable {
+
   private static final long serialVersionUID = -8078484477713715056L;
 
   @Id
@@ -54,7 +59,7 @@ public class Product implements Serializable {
   private String releaseCompany;
 
   @Column(name = "delete_flag")
-  private boolean delete_flag;
+  private boolean deleteFlag;
 
   @Column(name = "created_at")
   private Timestamp createdAt;
@@ -71,4 +76,9 @@ public class Product implements Serializable {
 
   @ManyToMany(cascade = CascadeType.ALL)
   private List<PurchaseHistory> purchaseHistoryList;
+
+  public Product(SearchSession searchSession) {
+    this.categoryId = searchSession.getCategoryId();
+    this.productName = searchSession.getProductName();
+  }
 }

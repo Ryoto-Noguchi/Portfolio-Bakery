@@ -15,11 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "mst_user")
-@Data
+@Getter @Setter
 public class User implements Serializable {
   private static final long serialVersionUID = 4867739830142183022L;
 
@@ -59,7 +60,7 @@ public class User implements Serializable {
   private Timestamp updatedAt;
 
   @Column(name = "delete_flag")
-  private boolean delete_flag;
+  private boolean deleteFlag;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")

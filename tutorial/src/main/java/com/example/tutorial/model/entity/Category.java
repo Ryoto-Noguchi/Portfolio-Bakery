@@ -13,11 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "mst_category")
-@Data
+@Getter @Setter // JPAのEntityには＠Dataは使わない方が良いらしい
 public class Category implements Serializable {
   private static final long serialVersionUID = 7548736863062877284L;
 
@@ -33,7 +35,7 @@ public class Category implements Serializable {
   private String categoryDescription;
 
   @Column(name = "delete_flag")
-  private boolean delete_flag;
+  private boolean deleteFlag;
 
   @Column(name = "created_at")
   private Timestamp createdAt;

@@ -7,6 +7,8 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import lombok.Data;
 
+
+
 @Component
 @SessionScope
 @Data
@@ -18,4 +20,6 @@ public class LoginSession implements Serializable {
 	private String userName;
 	private String password;
 	private boolean logined;
+
+
 }
