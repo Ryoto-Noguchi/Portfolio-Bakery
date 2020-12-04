@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutorial Bakery</title>
+</head>
+
+<body>
+
+  <th:block th:fragment="dialog-login-error">
+    <!-- ↓jQueryで#loginError押下時にこれを呼び出す -->
+    <div id="loginError" title="ログインエラー" class="hidden">
+      <h2 class="error">ユーザー名またはパスワードが違います。</h2>
+    </div>
+  </th:block>
+
+
+</body>
+
+</html>

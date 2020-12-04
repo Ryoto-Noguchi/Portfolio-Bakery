@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.tutorial.model.session.SearchSession;
@@ -55,7 +56,7 @@ public class Product implements Serializable {
   @Column(name = "release_date")
   private String releaseDate;
 
-  @Column(name = "release_comapany")
+  @Column(name = "release_company")
   private String releaseCompany;
 
   @Column(name = "delete_flag")
@@ -67,11 +68,12 @@ public class Product implements Serializable {
   @Column(name = "updated_at")
   private Timestamp updatedAt;
 
+  //@JoinColumnアノテーションは所有側に定義される。nameにはOne側と結合する際に必要となるカラム名をいれる。これを入力したら、One(被所有側)にmappedByをつける
   @ManyToOne(fetch = FetchType.LAZY) // One-To-Many/Many-To-Oneの関係ではMany側が所有側になる
-  @JoinColumn(name = "category_id", insertable = false, updatable = false) //@JoinColumnアノテーションは所有側に定義される。nameにはOne側と結合する際に必要となるカラム名をいれる。これを入力したら、One(被所有側)にmappedByをつける
+  @JoinColumn(name = "category_id", insertable = false, updatable = false)
   private Category category;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   private List<Cart> cartList;
 
   @ManyToMany(cascade = CascadeType.ALL)

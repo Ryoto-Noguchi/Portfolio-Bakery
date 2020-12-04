@@ -44,7 +44,7 @@ public class Destination implements Serializable {
   private String address;
 
   @Column(name = "status")
-  private int status;
+  private short status;
 
   @Column(name = "created_at")
   private Timestamp createdAt;

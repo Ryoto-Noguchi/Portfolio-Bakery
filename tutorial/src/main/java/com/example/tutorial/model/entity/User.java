@@ -51,7 +51,7 @@ public class User implements Serializable {
   private String firstNameKana;
 
   @Column(name = "gender")
-  private int gender;
+  private short gender;
 
   @Column(name = "created_at")
   private Timestamp createdAt;
@@ -66,7 +66,7 @@ public class User implements Serializable {
   @JoinColumn(name = "user_id")
   private Destination destination;
 
-  @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<PurchaseHistory> purchaseHistoryList;
 
 }

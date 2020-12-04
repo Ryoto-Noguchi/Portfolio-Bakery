@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tbl_purchase_hitory")
+@Table(name = "tbl_purchase_history")
 @Getter @Setter
 public class PurchaseHistory implements Serializable {
   private static final long serialVersionUID = -514891244709797659L;
@@ -45,7 +45,7 @@ public class PurchaseHistory implements Serializable {
   private int destinationId;
 
   @Column(name = "status")
-  private int status;
+  private short status;
 
   @Column(name = "purchased_at")
   private Timestamp purchasedAt;
@@ -60,11 +60,11 @@ public class PurchaseHistory implements Serializable {
   private List<Product> productList;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", insertable = false, updatable = false)
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "destination_id")
+  @JoinColumn(name = "destination_id", insertable = false, updatable = false)
   private Destination destination;
 
 }
