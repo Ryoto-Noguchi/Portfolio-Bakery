@@ -19,7 +19,7 @@
         <a th:href="@{/index/userRegister}">新規ユーザ登録はこちら</a>
       </span>
       <span id="welcome-message"
-        th:text="'ようこそ！' + ${loginSession.isLogin() == false ? 'ゲストさん' : 'loginSession.getUserName()' + さん'}"></span>
+        th:text="'ようこそ！' + ${loginSession == null ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></span>
     </div>
 
     <nav class="navbar navbar-light bg-light">
@@ -28,13 +28,13 @@
         <input type="password" class="form-control mr-sm-2" placeholder="パスワード" aria-label="password">
         <!-- ↓ログイン情報の有無で、display:noneのhiddenクラスを付与 -->
         <button id="login" class="btn btn-ouline-success my-2 my-sm-0" type="button"
-          th:class="${loginSession.isLogin() == null ? '' : 'hidden'}">ログイン</button>
+          th:class="${loginSession == null ? '' : 'hidden'}">ログイン</button>
         <button id="logout" class="btn btn-ouline-success my-2 my-sm-0" type="button"
-          th:class="${loginSession.isLogin() != null ? '' : 'hidden'}">ログアウト</button>
+          th:class="${loginSession != null ? '' : 'hidden'}">ログアウト</button>
       </form>
       <ul class="navbar-nav mr-auto">
         <li id="cart-btn" class="nav-item"><a th:href="@{/index/cart}" class="nav-link btn btn-primary">カート</a></li>
-        <li id="mypage-btn" class="nav-item" th:class="${loginSession.isLogin() != null ? '' : 'hidden'}"><a
+        <li id="mypage-btn" class="nav-item" th:class="${loginSession != null ? '' : 'hidden'}"><a
             th:href="@{/index/mypage}" class="nav-link btn btn-primary">マイページ</a></li>
       </ul>
     </nav>

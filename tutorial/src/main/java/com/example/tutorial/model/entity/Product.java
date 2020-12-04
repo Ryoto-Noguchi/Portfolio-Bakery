@@ -76,7 +76,8 @@ public class Product implements Serializable {
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   private List<Cart> cartList;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany
+  @JoinColumn(name = "id")
   private List<PurchaseHistory> purchaseHistoryList;
 
   public Product(SearchSession searchSession) {
