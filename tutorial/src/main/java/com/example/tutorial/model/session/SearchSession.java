@@ -9,6 +9,6 @@ import lombok.Data;
 @SessionScope
 @Data
 public class SearchSession {
-  private int categoryId;
+  private Integer categoryId;
   private String productName;
 }

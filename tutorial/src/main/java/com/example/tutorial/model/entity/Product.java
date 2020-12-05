@@ -33,7 +33,7 @@ public class Product implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private int id;
+  private Integer id; // intだと整数のみしか入らない値型であるため、null時条件無視するQBEが使えない
 
   @Column(name = "product_name")
   private String productName;
@@ -45,10 +45,10 @@ public class Product implements Serializable {
   private String productDescription;
 
   @Column(name = "category_id")
-  private int categoryId;
+  private Integer categoryId;
 
   @Column(name = "price")
-  private int price;
+  private Integer price;
 
   @Column(name = "image_full_path")
   private String imageFullPath;

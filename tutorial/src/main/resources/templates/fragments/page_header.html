@@ -10,34 +10,45 @@
 
   <th:block th:fragment="page-header">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
     <div class="header-box">
       <h1 id="header-logo">
         <a th:href="@{/index}">Tutorial Bakery</a>
       </h1>
-      <span id="signup">
-        <a th:href="@{/index/userRegister}">新規ユーザ登録はこちら</a>
-      </span>
-      <span id="welcome-message"
-        th:text="'ようこそ！' + ${loginSession == null ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></span>
+      <div class="header-right float-right">
+
+        <p id="signup">
+          <a th:href="@{/index/userRegister}">新規ユーザ登録はこちら</a>
+        </p>
+        <p id="welcome-message"
+          th:text="'ようこそ！' + ${loginSession == null ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>
+      </div>
     </div>
 
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar justify-content-end">
       <form action="" class="form-inline">
         <input type="text" class="form-control mr-sm-2" placeholder="ユーザ名" aria-label="userName">
         <input type="password" class="form-control mr-sm-2" placeholder="パスワード" aria-label="password">
         <!-- ↓ログイン情報の有無で、display:noneのhiddenクラスを付与 -->
-        <button id="login" class="btn btn-ouline-success my-2 my-sm-0" type="button"
-          th:class="${loginSession == null ? '' : 'hidden'}">ログイン</button>
-        <button id="logout" class="btn btn-ouline-success my-2 my-sm-0" type="button"
-          th:class="${loginSession != null ? '' : 'hidden'}">ログアウト</button>
+        <!-- ↓th:classをつけてしまうとclassが適応されなくなる -->
+        <button id="login" type="button"
+          th:class="${loginSession == null ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログイン</button>
+        <button id="logout" type="button"
+          th:class="${loginSession != null ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログアウト</button>
       </form>
-      <ul class="navbar-nav mr-auto">
-        <li id="cart-btn" class="nav-item"><a th:href="@{/index/cart}" class="nav-link btn btn-primary">カート</a></li>
-        <li id="mypage-btn" class="nav-item" th:class="${loginSession != null ? '' : 'hidden'}"><a
-            th:href="@{/index/mypage}" class="nav-link btn btn-primary">マイページ</a></li>
+    </nav>
+    <nav class="">
+      <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
+        <li id="mypage-btn" class="nav-item"
+          th:class="${loginSession != null ? 'nav-link btn btn-primary p-2 mr-2' : 'hidden'}"><a
+            th:href="@{/tutorial/mypage}">マイページ</a></li>
+        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}" class="nav-link btn btn-primary p-2 mr-3">カート</a>
+        </li>
       </ul>
     </nav>
+
 
 
 
