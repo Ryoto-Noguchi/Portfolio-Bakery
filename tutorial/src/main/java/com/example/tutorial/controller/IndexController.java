@@ -9,6 +9,7 @@ import com.example.tutorial.model.entity.Category;
 import com.example.tutorial.model.entity.Product;
 import com.example.tutorial.model.form.SearchForm;
 import com.example.tutorial.model.session.LoginSession;
+import com.example.tutorial.model.session.SearchSession;
 import com.example.tutorial.service.CategoryService;
 import com.example.tutorial.service.ProductService;
 
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 @RequestMapping("/index")
 public class IndexController {
@@ -33,20 +33,38 @@ public class IndexController {
   LoginSession loginSession;
 
   @Autowired
+  SearchSession searchSession;
+
+  @Autowired
   CategoryService categoryService;
 
   @Autowired
   ProductService productService;
 
-  @GetMapping(value = {"/", "/{page:^[1-9][0-9]*$}"})
-  public String index(@ModelAttribute("searchForm") SearchForm searchForm, @PathVariable(name = "page") Optional<Integer> page, Model model) {
+  /**
+   * トップページへ遷移するメソッド
+   *
+   * @return
+   */
+  @GetMapping("/refresh")
+  public String refresh() {
+    searchSession.setCategoryId(null);
+    searchSession.setProductName("");
+    return "redirect:/index/";
+  }
+
+  @GetMapping(value = { "/", "/{page:^[1-9][0-9]*$}" })
+  public String index(@ModelAttribute("searchForm") SearchForm searchForm,
+      @PathVariable(name = "page") Optional<Integer> page, Model model) {
     if (loginSession.isLogined() == false) {
-      int tempUserId = (int)(Math.random() * 1000000000);
+      int tempUserId = (int) (Math.random() * 1000000000);
       loginSession.setTmpUserId(tempUserId);
     }
 
     int currentPage = page.orElse(1); // 押下されたページリンクの数字(リクエストされたページ番号)
-    if (currentPage == 0) {currentPage = 1;} // 先頭ページを表示している際の「<」押下用
+    if (currentPage == 0) {
+      currentPage = 1;
+    } // 先頭ページを表示している際の「<」押下用
     Sort sort = Sort.by("id").ascending(); // ソートのルールを作成
     Pageable pageable = PageRequest.of(currentPage - 1, 5, sort); // ページネーション情報作成
     Page<Product> products = productService.productSearch(searchForm, pageable);

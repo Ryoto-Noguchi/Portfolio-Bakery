@@ -23,9 +23,9 @@ public class ProductService {
   @Autowired
   ProductRepository productRepos;
 
-	public Page<Product> productSearch(SearchForm searchForm, Pageable pageable) {
-    ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
-                    .withMatcher("product_name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+  public Page<Product> productSearch(SearchForm searchForm, Pageable pageable) {
+    ExampleMatcher customExampleMatcher = ExampleMatcher.matching().withMatcher("productName",
+        ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
     SearchForm sample = new SearchForm();
     if (searchForm.equals(sample)) {
       System.out.println("検索窓は全て空欄でした");
@@ -36,7 +36,7 @@ public class ProductService {
     Product product = new Product(searchSession);
     Example<Product> example = Example.of(product, customExampleMatcher);
     Page<Product> products = productRepos.findAll(example, pageable);
-		return products;
-	}
+    return products;
+  }
 
 }
