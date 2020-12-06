@@ -9,9 +9,67 @@
 <body>
 
   <th:block th:fragment="page-header">
+    <!-- ↓Bootstrap読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- ↓CSSの読み込み -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- ↓jQueryUIの読み込み -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <!-- ↓jQueryの読み込み -->
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- ↓ajaxの読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script th:src="@{/js/dialogConfig.js}"></script>
+    <script th:inline="javascript" defer>
+      /*<![CDATA[*/
+      $(() => {
+        $('#loginError').dialog(dialogConfig.loginError);
+
+        $('#login').on('click', () => {
+          let jsonString = {
+            'userName': $('#userName').val(),
+            'password': $('#password').val()
+          };
+          $ajax({
+            type: 'POST',
+            url: '/index/auth/login',
+            data: JSON.stringify(jsonString),
+            dataType: 'json',
+          }).done(function (data) {
+            let user = JSON.parse(data);
+            if (isEmpty(user)) {
+              $('#hiddenUserName').val('');
+              $('#loginError').dialog('open');
+            } else {
+              $('#hiddenUserName').val(user['userName']); // 「json['項目名']」で値を取得できる
+              login(user);
+            }
+          }).fail(function (data) {
+            alert('Error: ajax connection failed.');
+          }).always(function (data) {
+            console.log("ajax通信しました");
+          });
+        });
+
+        function login(user) {
+          let userName = user['userName'];
+          $('#welcome-message').text(`ようこそ！ ${userName} さん`);
+          let loginChecker = $('#login').prop('class');
+          if (loginChecker != 'hidden') {
+            $('#login').addClass('hidden');
+            $('#logout').removeClass('hidden');
+          }
+
+          $('#mypage-btn').removeClass('hidden');
+
+          $('#userName').val('');
+          $('#password').val('');
+        }
+
+      });
+      /*]]>*/
+    </script>
 
     <div class="header-box">
       <h1 id="header-logo">
@@ -29,8 +87,11 @@
 
     <nav class="navbar justify-content-end">
       <form action="" class="form-inline">
-        <input type="text" class="form-control mr-sm-2" placeholder="ユーザ名" aria-label="userName">
-        <input type="password" class="form-control mr-sm-2" placeholder="パスワード" aria-label="password">
+        <input id="userName" name="userName" type="text" class="form-control mr-sm-2" placeholder="ユーザ名"
+          aria-label="userName">
+        <input id="password" name="password" type="password" class="form-control mr-sm-2" placeholder="パスワード"
+          aria-label="password">
+        <input type="hidden" name="hiddenUserName" id="hiddenUserName" value="">
         <!-- ↓ログイン情報の有無で、display:noneのhiddenクラスを付与 -->
         <!-- ↓th:classをつけてしまうとclassが適応されなくなる -->
         <button id="login" type="button"
@@ -44,14 +105,13 @@
         <li id="mypage-btn" class="nav-item"
           th:class="${loginSession != null ? 'nav-link btn btn-primary p-2 mr-2' : 'hidden'}"><a
             th:href="@{/tutorial/mypage}">マイページ</a></li>
-        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}" class="nav-link btn btn-primary p-2 mr-3">カート</a>
+        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}"
+            class="nav-link btn btn-primary p-2 mr-3">カート</a>
         </li>
       </ul>
     </nav>
-
-
-
-
+    <!-- Modal Dialog (ログインエラー) -->
+    <div th:insert="fragments/dialog_login_error::dialo-login-error"></div>
   </th:block>
 
 
