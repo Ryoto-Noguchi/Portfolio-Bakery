@@ -1,3 +1,8 @@
+@charset "UTF-8";
+/* css %
+node-sass styles.scss styles.css --output-style expanded --watch
+Scss自動コンパイルコマンド
+*/
 html {
   padding: 1rem;
 }
@@ -40,6 +45,14 @@ html {
   border-radius: 0.25rem;
 }
 
+.frame img {
+  border-radius: 0.25rem;
+}
+
 tr td {
   vertical-align: middle !important;
+}
+
+input {
+  text-align: center;
 }

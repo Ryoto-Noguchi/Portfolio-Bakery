@@ -34,8 +34,7 @@
 
     <!-- 商品リスト表示 -->
     <div class="table-responsive-md">
-      <table class="table table-hover table-bordered text-center"
-        th:if="${products != null || products.getSize() > 0}">
+      <table class="table table-hover table-bordered text-center" th:if="${products != null || products.getSize() > 0}">
         <caption class="hidden">商品リスト</caption>
         <thead class="thead-light">
           <tr>
@@ -49,12 +48,12 @@
         <tbody>
           <tr th:each="product : ${products}">
             <td class="image w-25">
-              <a class="frame" th:href="@{/tutorial/product/{id} (id=${product.id})}">
+              <a class="frame" th:href="@{/index/product/{id} (id=${product.id})}">
                 <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = ${product.imageFullPath})}" alt="商品画像">
               </a>
             </td>
             <td>
-              <a th:href="@{/tutorial/product/{id} (id=${product.id})}">
+              <a th:href="@{/index/product/{id} (id=${product.id})}">
                 <p th:text="${product.productName}"></p>
               </a>
             </td>

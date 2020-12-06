@@ -1,3 +1,7 @@
+/* css %
+node-sass styles.scss styles.css --output-style expanded --watch
+Scss自動コンパイルコマンド
+*/
 html {
   padding: 1rem;
 }
@@ -37,6 +41,9 @@ html {
   a {
     border-radius: 0.25rem;
   }
+  img {
+    border-radius: 0.25rem;
+  }
 }
 
 // テーブル内の文字上下中央揃え
@@ -44,4 +51,8 @@ tr {
   td {
     vertical-align: middle !important;
   }
+}
+
+input {
+  text-align: center;
 }

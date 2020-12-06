@@ -43,7 +43,6 @@ public class IndexController {
 
   /**
    * トップページへ遷移するメソッド
-   *
    * @return
    */
   @GetMapping("/refresh")
@@ -53,9 +52,14 @@ public class IndexController {
     return "redirect:/index/";
   }
 
+  /**
+   * トップページの初期表示と検索時、ページ番号押下時の商品リスト表示
+   * @param page
+   * @param model
+   * @return リクエストされたページの資産リスト
+   */
   @GetMapping(value = { "/", "/{page:^[1-9][0-9]*$}" })
-  public String index(@ModelAttribute("searchForm") SearchForm searchForm,
-      @PathVariable(name = "page") Optional<Integer> page, Model model) {
+  public String index(@ModelAttribute("searchForm") SearchForm searchForm, @PathVariable(name = "page") Optional<Integer> page, Model model) {
     if (loginSession.isLogined() == false) {
       int tempUserId = (int) (Math.random() * 1000000000);
       loginSession.setTmpUserId(tempUserId);
@@ -78,6 +82,16 @@ public class IndexController {
 
     List<Category> categories = categoryService.getCategories();
     model.addAttribute("categories", categories);
+    if (searchSession.getCategoryId() != null) { model.addAttribute("categoryId", searchSession.getCategoryId()); }
+    if (searchSession.getProductName() != null) { model.addAttribute("productName", searchSession.getProductName()); }
     return "index";
+  }
+
+  @GetMapping("/product/{id}")
+  public String goProductDetail(@PathVariable("id") int id, Model model) {
+    Product product = productService.findOneProduct(id);
+    model.addAttribute("product", product);
+    return "product_detail";
+
   }
 }

@@ -1,5 +1,8 @@
 package com.example.tutorial.service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import com.example.tutorial.model.dao.ProductRepository;
 import com.example.tutorial.model.entity.Product;
 import com.example.tutorial.model.form.SearchForm;
@@ -23,6 +26,13 @@ public class ProductService {
   @Autowired
   ProductRepository productRepos;
 
+  /**
+   * クエストされたページ番号に応じたページをフェッチするメソッド
+   *
+   * @param searchForm
+   * @param pageable
+   * @return
+   */
   public Page<Product> productSearch(SearchForm searchForm, Pageable pageable) {
     ExampleMatcher customExampleMatcher = ExampleMatcher.matching().withMatcher("productName",
         ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
@@ -37,6 +47,23 @@ public class ProductService {
     Example<Product> example = Example.of(product, customExampleMatcher);
     Page<Product> products = productRepos.findAll(example, pageable);
     return products;
+  }
+
+  /**
+   * 商品番号をもとに商品のレコードをフェッチしてくるメソッド
+   *
+   * @param id
+   * @return
+   */
+  public Product findOneProduct(int id) throws NoSuchElementException {
+    Optional<Product> fetchedProduct = productRepos.findById(id);
+    Product product = null;
+    try {
+      product = fetchedProduct.orElseThrow(); // 該当する商品が見つからなかった場合はエラーを投げる
+    } catch (NoSuchElementException e) {
+      throw new RuntimeException(e);
+    }
+    return product;
   }
 
 }

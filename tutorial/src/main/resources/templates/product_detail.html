@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Bakery</title>
+</head>
+
+<body>
+  <header th:insert="fragments/page_header::page-header"></header>
+  <div class="table-responsive-md container-fluid mt-3">
+    <table class="table table-bordered text-center">
+      <caption class="hidden">商品リスト</caption>
+      <thead class="thead-light">
+        <tr>
+          <th scope="col" style="width: 20%;">画像</th>
+          <th scope="col" style="width: 10%;">価格</th>
+          <th scope="col" style="width: 30%;">商品説明</th>
+          <th scope="col" style="width: 20%;">発売元</th>
+          <th scope="col" style="width: 20%;">発売年月日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:object="${product}">
+          <td class="frame">
+            <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = *{imageFullPath})}" alt="商品画像">
+          </td>
+          <td th:text="*{price}"></td>
+          <td th:text="*{productDescription}"></td>
+          <td th:text="*{releaseCompany}"></td>
+          <td th:text="*{releaseDate}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <form class="form-inline mr-3 float-right">
+    <input id="productCount" class="mr-2" name="productCount" type="number" value="0" min="0" step="1">
+    <input type="hidden" name="productId" th:value="*{id}">
+    <button type="button" class="btn btn-outline-warning">カートに追加</button>
+  </form>
+  <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+</body>
+
+</html>
