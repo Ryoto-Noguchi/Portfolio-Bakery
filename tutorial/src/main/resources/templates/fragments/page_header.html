@@ -31,14 +31,15 @@
             'userName': $('#userName').val(),
             'password': $('#password').val()
           };
-          $ajax({
+          $.ajax({
             type: 'POST',
-            url: '/index/auth/login',
+            url: '/tutorial/auth/login',
             data: JSON.stringify(jsonString),
-            dataType: 'json',
+            contentType: 'application/json',
+            dataType: 'json'
           }).done(function (data) {
-            let user = JSON.parse(data);
-            if (isEmpty(user)) {
+            let user = data;
+            if (jQuery.isEmptyObject(user)) {
               $('#hiddenUserName').val('');
               $('#loginError').dialog('open');
             } else {
@@ -46,7 +47,7 @@
               login(user);
             }
           }).fail(function (data) {
-            alert('Error: ajax connection failed.');
+            alert('Error: ajax通信に失敗しました');
           }).always(function (data) {
             console.log("ajax通信しました");
           });
@@ -58,7 +59,7 @@
           let loginChecker = $('#login').prop('class');
           if (loginChecker != 'hidden') {
             $('#login').addClass('hidden');
-            $('#logout').removeClass('hidden');
+            $('#logout').removeClass('hidden').addClass('btn btn-outline-success my-2 my-sm-0');
           }
 
           $('#mypage-btn').removeClass('hidden');
@@ -111,7 +112,7 @@
       </ul>
     </nav>
     <!-- Modal Dialog (ログインエラー) -->
-    <div th:insert="fragments/dialog_login_error::dialo-login-error"></div>
+    <div th:insert="fragments/dialog_login_error::dialog-login-error"></div>
   </th:block>
 
 

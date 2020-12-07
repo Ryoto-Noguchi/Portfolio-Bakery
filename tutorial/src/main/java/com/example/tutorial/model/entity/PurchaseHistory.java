@@ -53,7 +53,7 @@ public class PurchaseHistory implements Serializable {
   @Column(name = "created_at")
   private Timestamp createdAt;
 
-  @Column(name = "upated_at")
+  @Column(name = "updated_at")
   private Timestamp updatedAt;
 
   @ManyToMany(mappedBy = "purchaseHistoryList")

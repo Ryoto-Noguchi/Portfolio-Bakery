@@ -63,7 +63,7 @@ public class User implements Serializable {
   private boolean deleteFlag;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "id")
   private Destination destination;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

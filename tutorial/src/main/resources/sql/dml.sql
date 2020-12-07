@@ -1,8 +1,18 @@
+-- mst_user
+INSERT INTO mst_user (user_name, password, family_name, first_name, family_name_kana, first_name_kana, gender, created_at, updated_at, mail_address) VALUES ('taro_yamada', '1234', '山田', '太郎', 'やまだ', 'たろう', 0, current_timestamp, current_timestamp, 'taro_yamada@gamil.com');
+INSERT INTO mst_user (user_name, password, family_name, first_name, family_name_kana, first_name_kana, gender, created_at, updated_at, mail_address) VALUES ('tokiko_kato', '9876', '加藤', '登紀子', 'かとう', 'ときこ', 1, current_timestamp, current_timestamp, 'tokiko_kato@gamil.com');
+INSERT INTO mst_user (user_name, password, family_name, first_name, family_name_kana, first_name_kana, gender, created_at, updated_at, mail_address) VALUES ('hanako_suzuki', '1111', '鈴木', '花子', 'すずき', 'はなこ', 1, current_timestamp, current_timestamp, 'hanako_suzuki@gamil.com');
+INSERT INTO mst_user (user_name, password, family_name, first_name, family_name_kana, first_name_kana, gender, created_at, updated_at, mail_address) VALUES ('daiki_tanaka', '7777', '田中', '大輝', 'たなか', 'だいき', 0, current_timestamp, current_timestamp, 'daiki_tanaka@gamil.com');
+
+SELECT * FROM mst_user;
+
+-- mst_category
 INSERT INTO mst_category (id, category_name, category_description, created_at, updated_at) VALUES (1, '食事パン', '食事用のパン', current_timestamp, current_timestamp);
 INSERT INTO mst_category (id, category_name, category_description, created_at, updated_at) VALUES (2, 'おかずパン', '小腹が減った時用', current_timestamp, current_timestamp);
 INSERT INTO mst_category (id, category_name, category_description, created_at, updated_at) VALUES (3, '菓子パン', 'おやつに最適', current_timestamp, current_timestamp);
 INSERT INTO mst_category (id, category_name, category_description, created_at, updated_at) VALUES (4, '糖質OFF', '痩せたいあなたへ', current_timestamp, current_timestamp);
 
+-- mst_product
 INSERT INTO mst_product (id, product_name, product_name_kana, product_description, category_id, price, image_full_path, release_date, release_company,  created_at, updated_at) VALUES (1, '食パン', 'しょくぱん', 'ふわふわな食感です', 1, 500, '/img/WhiteBread.jpg', '2019/01/01', 'サンプル株式会社', current_timestamp, current_timestamp);
 INSERT INTO mst_product (id, product_name, product_name_kana, product_description, category_id, price, image_full_path, release_date, release_company,  created_at, updated_at) VALUES (2, 'クロワッサン', 'くろわっさん', 'サクサクな食感です', 1, 340, '/img/CrescentRoll.jpg', '2019/01/01', 'サンプル株式会社', current_timestamp, current_timestamp);
 INSERT INTO mst_product (id, product_name, product_name_kana, product_description, category_id, price, image_full_path, release_date, release_company,  created_at, updated_at) VALUES (3, 'ウインナーロール', 'ういんなーろーる', 'カリカリな食感です', 2, 280, '/img/WienerRoll.jpg', '2019/01/01', 'サンプル株式会社', current_timestamp, current_timestamp);
