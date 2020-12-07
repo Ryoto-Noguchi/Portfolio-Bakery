@@ -59,10 +59,10 @@
           let loginChecker = $('#login').prop('class');
           if (loginChecker != 'hidden') {
             $('#login').addClass('hidden');
-            $('#logout').removeClass('hidden').addClass('btn btn-outline-success my-2 my-sm-0');
+            $('#logout').removeClass('hidden').addClass('btn color-white btn-success my-2 my-sm-0');
           }
 
-          $('#mypage-btn').removeClass('hidden');
+          $('#mypage-btn').removeClass('hidden').addClass('nav-link btn color-white btn-info p-2 mr-2');
 
           $('#userName').val('');
           $('#password').val('');
@@ -103,11 +103,10 @@
     </nav>
     <nav class="">
       <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
-        <li id="mypage-btn" class="nav-item"
-          th:class="${loginSession != null ? 'nav-link btn btn-primary p-2 mr-2' : 'hidden'}"><a
-            th:href="@{/tutorial/mypage}">マイページ</a></li>
+        <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage}"
+            th:class="${loginSession != null ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
         <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}"
-            class="nav-link btn btn-primary p-2 mr-3">カート</a>
+            class="nav-link btn color-white btn-primary p-2 mr-3">カート</a>
         </li>
       </ul>
     </nav>
