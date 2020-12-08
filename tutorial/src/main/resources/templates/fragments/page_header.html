@@ -63,7 +63,6 @@
             dataType: 'text' // ajaxで通信する際にパラメーターがない場合には、「dataType:'text'」を指定する
           }).done(function (data) {
             $('#hiddenUserName').val('');
-            logout();
             alert('ログアウトしました');
             location.replace('/index/refresh');
           }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -81,20 +80,14 @@
       function login(user) {
         let userName = user['userName'];
         $('#welcome-message').text(`ようこそ！ ${userName} さん`);
-        let loginChecker = $('#login').prop('class');
+        let loginChecker = $('#login').prop('class'); // .prop()はidとかclassとかの属性の値を取得する。この行で言えば、#loginのclass="XXX"の「XXX」の部分を取得
         if (loginChecker != 'hidden') {
           $('#login').addClass('hidden');
           $('#logout').removeClass('hidden').addClass('btn color-white btn-success my-2 my-sm-0');
         }
-
         $('#mypage-btn').removeClass('hidden').addClass('nav-link btn color-white btn-info p-2 mr-2');
-
         $('#userName').val('');
         $('#password').val('');
-      }
-
-      function logout() {
-        console.log('ログアウトしました');
       }
 
       /*]]>*/
@@ -131,7 +124,7 @@
     </nav>
     <nav class="">
       <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
-        <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage}"
+        <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage/}"
             th:class="${loginSession != null ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
         <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}"
             class="nav-link btn color-white btn-primary p-2 mr-3">カート</a>
