@@ -15,8 +15,8 @@ import lombok.Data;
 public class LoginSession implements Serializable {
   private static final long serialVersionUID = 8679121968320842070L;
 
-  private int userId;
-	private int tmpUserId;
+  private Integer userId;
+	private Integer tmpUserId;
 	private String userName;
 	private String password;
 	private boolean logined;

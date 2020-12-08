@@ -26,6 +26,7 @@
       $(() => {
         $('#loginError').dialog(dialogConfig.loginError);
 
+        // ログインボタン押下後の処理
         $('#login').on('click', () => {
           let jsonString = {
             'userName': $('#userName').val(),
@@ -53,22 +54,49 @@
           });
         });
 
-        function login(user) {
-          let userName = user['userName'];
-          $('#welcome-message').text(`ようこそ！ ${userName} さん`);
-          let loginChecker = $('#login').prop('class');
-          if (loginChecker != 'hidden') {
-            $('#login').addClass('hidden');
-            $('#logout').removeClass('hidden').addClass('btn color-white btn-success my-2 my-sm-0');
-          }
+        $('#logout').on('click', () => {
+          var url = '/tutorial/auth/logout';
+          $.ajax({
+            type: 'POST',
+            url: '/tutorial/auth/logout',
+            contentType: 'application/json',
+            dataType: 'text' // ajaxで通信する際にパラメーターがない場合には、「dataType:'text'」を指定する
+          }).done(function (data) {
+            $('#hiddenUserName').val('');
+            logout();
+            alert('ログアウトしました');
+            location.replace('/index/refresh');
+          }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert('ajax通信に失敗しました');
+            console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+            console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+            console.log("errorThrown    : " + errorThrown.message); // 例外情報
+            console.log("URL            : " + url);
+          }).always(function (data) {
+            console.log('ajax通信しました');
+          });
+        });
+      });
 
-          $('#mypage-btn').removeClass('hidden').addClass('nav-link btn color-white btn-info p-2 mr-2');
-
-          $('#userName').val('');
-          $('#password').val('');
+      function login(user) {
+        let userName = user['userName'];
+        $('#welcome-message').text(`ようこそ！ ${userName} さん`);
+        let loginChecker = $('#login').prop('class');
+        if (loginChecker != 'hidden') {
+          $('#login').addClass('hidden');
+          $('#logout').removeClass('hidden').addClass('btn color-white btn-success my-2 my-sm-0');
         }
 
-      });
+        $('#mypage-btn').removeClass('hidden').addClass('nav-link btn color-white btn-info p-2 mr-2');
+
+        $('#userName').val('');
+        $('#password').val('');
+      }
+
+      function logout() {
+        console.log('ログアウトしました');
+      }
+
       /*]]>*/
     </script>
 

@@ -38,13 +38,21 @@ public class AuthController {
 			loginSession.setPassword(user.getPassword());
     } else {
 			loginSession.setLogined(false);
-			loginSession.setUserId(0);
+			loginSession.setUserId(null);
 			loginSession.setUserName(null);
 			loginSession.setPassword(null);
     }
     return gson.toJson(user);
+  }
 
-
+  @PostMapping("/logout")
+  public String logout() {
+    loginSession.setTmpUserId(0);
+		loginSession.setLogined(false);
+		loginSession.setUserId(0);
+		loginSession.setUserName(null);
+    loginSession.setPassword(null);
+    return "";
   }
 
 }
