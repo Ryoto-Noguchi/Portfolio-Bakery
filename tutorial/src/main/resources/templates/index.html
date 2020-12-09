@@ -9,70 +9,103 @@
 
 <body>
   <header th:insert="fragments/page_header::page-header"></header>
-  <div class="container d-block">
-    <div class="container-fluid d-flex justify-content-center mb-3">
-      <form id="searchForm" th:action="@{/index/}" method="GET" name="searchForm" class="form-inline"
-        th:object="${searchForm}">
-        <!-- カテゴリ検索窓 -->
-        <label for="category-id" class="mr-2">カテゴリ</label>
-        <select name="categoryId" id="categoryId" class="mr-2">
-          <option selected disabled value="">カテゴリを選んでください</option>
-          <option th:each="category:${categories}" th:selected="${category.id == categoryId}"
-            th:text="${category.categoryName}" th:value="${category.id}">
-          </option>
-        </select>
-        <!-- 商品名検索窓 -->
-        <label for="productName" class="mr-2">商品名</label>
-        <input id="productName" type="text" name="productName" th:value="${productName}" class="mr-2">
-        <button id="searchBtn" type="submit" class="btn btn-outline-success">検索</button>
-      </form>
+  <main>
+    <div class="container d-block">
+      <div class="container-fluid d-flex justify-content-center mb-3">
+        <form id="searchForm" th:action="@{/index/}" method="GET" name="searchForm" class="form-inline"
+          th:object="${searchForm}">
+          <!-- カテゴリ検索窓 -->
+          <label for="category-id" class="mr-2">カテゴリ</label>
+          <select name="categoryId" id="categoryId" class="mr-2">
+            <option selected disabled value="">カテゴリを選んでください</option>
+            <option th:each="category:${categories}" th:selected="${category.id == categoryId}"
+              th:text="${category.categoryName}" th:value="${category.id}">
+            </option>
+          </select>
+          <!-- 商品名検索窓 -->
+          <label for="productName" class="mr-2">商品名</label>
+          <input id="productName" type="text" name="productName" th:value="${productName}" class="mr-2">
+          <button id="searchBtn" type="submit" class="btn btn-outline-success">検索</button>
+        </form>
 
-      <div class="no-data" th:if="${products == null || products.getSize() == 0}">
-        <p class="info">検索結果はありません</p>
+        <div class="no-data" th:if="${products == null || products.getSize() == 0}">
+          <p class="info">検索結果はありません</p>
+        </div>
       </div>
-    </div>
 
-    <!-- 商品リスト表示 -->
-    <div class="table-responsive-md">
-      <table class="table table-hover table-bordered text-center" th:if="${products != null || products.getSize() > 0}">
-        <caption class="hidden">商品リスト</caption>
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">画像</th>
-            <th scope="col">商品名</th>
-            <th scope="col">価格(円)</th>
-            <th scope="col">個数</th>
-            <th scope="col">カート</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="product : ${products}">
-            <td class="image w-25">
-              <a class="frame" th:href="@{/index/product/{id} (id=${product.id})}">
-                <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = ${product.imageFullPath})}" alt="商品画像">
-              </a>
-            </td>
-            <td>
-              <a th:href="@{/index/product/{id} (id=${product.id})}">
-                <p th:text="${product.productName}"></p>
-              </a>
-            </td>
-            <td th:text="${product.price}"></td>
-            <td>
-              <input id="productCount" type="number" name="productCount" value="0" min="0" step="1">
-              <input id="productId" type="hidden" name="productId" th:value="${product.id}">
-            </td>
-            <td>
-              <button id="cart-add-btn" class="btn btn-outline-warning">追加</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-center" th:insert="fragments/pagination::pagination"></div>
-    </div>
+      <!-- 商品リスト表示 -->
+      <div class="table-responsive-md">
+        <table class="table table-hover table-bordered text-center"
+          th:if="${products != null || products.getSize() > 0}">
+          <caption class="hidden">商品リスト</caption>
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">画像</th>
+              <th scope="col">商品名</th>
+              <th scope="col">価格(円)</th>
+              <th scope="col">個数</th>
+              <th scope="col">カート</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product : ${products}">
+              <td class="image w-25">
+                <a class="frame" th:href="@{/index/product/{id} (id=${product.id})}">
+                  <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = ${product.imageFullPath})}" alt="商品画像">
+            </a>
+          </td>
+          <td>
+            <a th:href="@{/index/product/{id} (id=${product.id})}">
+              <p th:text="${product.productName}"></p>
+            </a>
+          </td>
+          <td th:text="${product.price}"></td>
+          <td>
+            <input id="productCount" type="number" name="productCount" value="0" min="0" step="1">
+            <input id="productId" type="hidden" name="productId" th:value="${product.id}">
+          </td>
+          <td>
+            <button id="cart-add-btn" class="btn btn-outline-warning">追加</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center" th:insert="fragments/pagination::pagination"></div>
   </div>
-
-  <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+</div>
+</main>
+<footer th:insert="fragments/page_footer.html::page-footer"></footer>
+<script>
+  $(() => {
+    $('#cart-add-btn').on('click', function addCart(event) {
+      let tr = $(event.target).parent().parent();
+      let productId = tr.find('#productId').val();
+      let productCount = tr.find('#productCount').val();
+      if (productCount == 0) {
+        alert('個数が0です');
+        return;
+      }
+      let jsonString = {
+        'productId': productId,
+        'productCount': productCount
+      };
+      $.ajax({
+        type: 'POST',
+        url: '/tutorial/cart/add',
+        data: JSON.stringify(jsonString),
+        contentType: 'application/json',
+        dataType: 'json'
+      }).done(function addReport(data) {
+        let product = data;
+        alert(`カートに${product['productName']}を${product['productCount']}個追加しました`);
+      }).fail(function failedReport(data) {
+        alert('ajax通信に失敗しました');
+      }).always(function report(data) {
+        console.log('ajax通信しました');
+      });
+    });
+  });
+</script>
 </body>
 
 </html>

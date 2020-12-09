@@ -10,7 +10,13 @@
 <body>
   <header th:insert="fragments/page_header::page-header"></header>
   <main>
-    <h2 class="page-title text-center">マイページ</h2>
+    <div class="d-flex justify-content-center align-items-center">
+      <h2 class="page-title text-center mb-0">マイページ</h2>
+      <form th:action="@{/tutorial/history/}" method="GET" class="form-inline">
+        <button type="submit" class="btn btn-warning m-3">購入履歴を見る</button>
+      </form>
+    </div>
+
     <div class="container-fluid d-flex justify-content-center table-responsive-md">
       <table class="table table-hover table-bordered text-center" th:object="${user}">
         <tr>
@@ -40,8 +46,7 @@
         <tr>
           <th scope="row">パスワード</th>
           <th>
-            <span id="password"></span><a href="">パスワード再設定</a>
-            <input type="hidden" id="hiddenPassword" th:value="*{password}">
+            <span id="asters"></span><small><a href="">パスワード再設定</a></small>
           </th>
         </tr>
       </table>
@@ -51,16 +56,17 @@
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
 </body>
 <script th:inline="javascript">
+  /*<![CDATA[*/
   $(() => {
 
     /* 実際のパスワードの文字数分 「*」 を表示する */
-    let password = $('#hiddenPassword').val();
+    let password = /*[[${user.password}]]*/ 'password';
     let asters = '';
     for (let i = 0; i < password.length; i++) {
       asters += '*';
       console.log(asters);
     }
-    $('#password').html(asters);
+    $('#asters').text(asters);
 
     // $('#resetPassword').dialog(dialogConfig.resetPassword);
 
@@ -68,6 +74,7 @@
     //   $("#resetPassword").dialog("open");
     // });
   });
+  /*]]>*/
 </script>
 
 </html>
