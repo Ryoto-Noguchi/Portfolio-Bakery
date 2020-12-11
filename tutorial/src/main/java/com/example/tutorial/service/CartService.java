@@ -16,7 +16,7 @@ public class CartService {
   @Autowired
   private CartRepository cartRepos;
 
-	public int findCart(int userId, int productId) {
+	public Cart findCart(int userId, int productId) {
 		return cartRepos.findByUserIdAndProductId(userId, productId);
 	}
 

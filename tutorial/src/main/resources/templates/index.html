@@ -61,11 +61,12 @@
           </td>
           <td th:text="${product.price}"></td>
           <td>
-            <input id="productCount" type="number" name="productCount" value="0" min="0" step="1">
-            <input id="productId" type="hidden" name="productId" th:value="${product.id}">
+            <input class="productCount" type="number" name="productCount" value="0" min="0" step="1">
+            <input class="productId" type="hidden" name="productId" th:value="${product.id}">
+            <input class="productName" type="hidden" name="productName" th:value="${product.productName}">
           </td>
           <td>
-            <button id="cart-add-btn" class="btn btn-outline-warning">追加</button>
+            <button id="" class="btn btn-outline-warning cart-add-btn">追加</button>
           </td>
         </tr>
       </tbody>
@@ -77,17 +78,19 @@
 <footer th:insert="fragments/page_footer.html::page-footer"></footer>
 <script>
   $(() => {
-    $('#cart-add-btn').on('click', function addCart(event) {
+    $('.cart-add-btn').on('click', function addCart(event) {
       let tr = $(event.target).parent().parent();
-      let productId = tr.find('#productId').val();
-      let productCount = tr.find('#productCount').val();
+      let productId = tr.find('.productId').val();
+      let productCount = tr.find('.productCount').val();
+      let productName = tr.find('.productName').val();
       if (productCount == 0) {
         alert('個数が0です');
         return;
       }
       let jsonString = {
         'productId': productId,
-        'productCount': productCount
+        'productCount': productCount,
+        'productName': productName
       };
       $.ajax({
         type: 'POST',
@@ -97,7 +100,7 @@
         dataType: 'json'
       }).done(function addReport(data) {
         let product = data;
-        alert(`カートに${product['productName']}を${product['productCount']}個追加しました`);
+        alert(`カートに${product['product']['productName']}を${product['productCount']}個追加しました`);
       }).fail(function failedReport(data) {
         alert('ajax通信に失敗しました');
       }).always(function report(data) {

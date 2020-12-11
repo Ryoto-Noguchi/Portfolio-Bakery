@@ -84,4 +84,9 @@ public class Product implements Serializable {
     this.categoryId = searchSession.getCategoryId();
     this.productName = searchSession.getProductName();
   }
+
+  public Product(String productName) {
+    this.productName = productName;
+  }
+
 }

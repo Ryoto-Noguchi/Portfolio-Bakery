@@ -56,5 +56,7 @@ public class Cart implements Serializable {
     this.id = form.getUserId();
     this.productId = form.getProductId();
     this.productCount = form.getProductCount();
+    System.out.println("商品名" + form.getProductName());
+    this.product = new Product(form.getProductName());
   }
 }

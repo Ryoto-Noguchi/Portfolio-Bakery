@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,23 +29,33 @@ public class CartController {
 
   Gson gson = new Gson();
 
+  @GetMapping("/")
+  public String goCartPage(Model model) {
+    int userId = loginSession.getUserId();
+    List<Cart> cartList = cartService.findCartList(userId);
+    model.addAttribute("cartList", cartList);
+    return "cart";
+  }
+
   @PostMapping("/add")
   @ResponseBody
   public String add(@RequestBody CartForm form) {
     int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
     int productId = form.getProductId();
+    // String productName = form.getProductName();
     form.setUserId(userId);
 
     Cart cart = new Cart(form); // 新しいカートのレコードをmst_cartテーブルに追加
-    if (cartService.findCart(userId, productId) > 0) { // あるユーザが今回追加した商品をすでにカートに入れていたら
+
+    if (cartService.findCart(userId, productId) != null) { // あるユーザが今回追加した商品をすでにカートに入れていたら
       int result = cartService.updateCart(cart);
       System.out.println("カートを" + result + "件更新しました");
     } else {
       int result = cartService.insertCart(cart);
       System.out.println("カートを" + result + "件追加しました");
     }
-
-    List<Cart> cartList = cartService.findCartList(userId);
-    return gson.toJson(cartList);
+    return gson.toJson(cart);
   }
+
+
 }
