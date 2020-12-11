@@ -1,6 +1,9 @@
 package com.example.tutorial.service;
 
+import java.util.List;
+
 import com.example.tutorial.model.dao.CartRepository;
+import com.example.tutorial.model.entity.Cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,18 @@ public class CartService {
 
 	public int findCart(int userId, int productId) {
 		return cartRepos.findByUserIdAndProductId(userId, productId);
+	}
+
+	public int updateCart(Cart cart) {
+		return cartRepos.updateCart(cart);
+	}
+
+	public int insertCart(Cart cart) {
+		return cartRepos.insertCart(cart);
+	}
+
+	public List<Cart> findCartList(int userId) {
+		return cartRepos.findByUserId(userId);
 	}
 
 }

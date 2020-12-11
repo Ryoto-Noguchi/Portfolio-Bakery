@@ -13,13 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.tutorial.model.form.CartForm;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "tbl_cart")
-@Getter @Setter
-public class Cart implements Serializable{
+@Getter
+@Setter
+@NoArgsConstructor
+public class Cart implements Serializable {
+
   private static final long serialVersionUID = -4731172952052584718L;
 
   @Id
@@ -45,4 +51,10 @@ public class Cart implements Serializable{
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "product_id", insertable = false, updatable = false)
   private Product product;
+
+  public Cart(CartForm form) {
+    this.id = form.getUserId();
+    this.productId = form.getProductId();
+    this.productCount = form.getProductCount();
+  }
 }
