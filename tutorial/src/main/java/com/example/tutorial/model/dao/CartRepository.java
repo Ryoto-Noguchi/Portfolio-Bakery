@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
-	Cart findByUserIdAndProductId(int userId, int productId);
+	Cart findByUserIdAndProductIdAndDeleteFlagFalseOrderById(int userId, int productId);
 
 	@Modifying
 	@Query(value = "UPDATE tbl_cart SET product_counnt = product_count + :#{#cart.productCount} WEHRE user_id = :#{#cart.userId} AND product_id = :#{#cart.productId}", nativeQuery = true)
@@ -23,6 +23,10 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	@Query(value = "INSERT INTO tbl_cart (user_id, product_id, product_count) VALUES (:#{#cart.userId}, :#{#cart.productId}, :#{#cart.productCount})", nativeQuery = true)
 	int insertCart(@Param("cart") Cart cart);
 
-	List<Cart> findByUserId(int userId);
+	List<Cart> findByUserIdAndDeleteFlagFalseOrderById(int userId);
+
+	@Modifying
+	@Query(value = "UPDATE tbl_cart SET delete_flag = TRUE WHERE id = :id", nativeQuery = true)
+	int logicalDeleteById(int id);
 
 }

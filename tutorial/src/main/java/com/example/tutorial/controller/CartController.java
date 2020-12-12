@@ -1,6 +1,7 @@
 package com.example.tutorial.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.tutorial.model.entity.Cart;
 import com.example.tutorial.model.form.CartForm;
@@ -57,4 +58,17 @@ public class CartController {
     return gson.toJson(cart);
   }
 
+  @SuppressWarnings("unchecked")
+  @PostMapping("/delete")
+  @ResponseBody
+  public int deleteCart(@RequestBody String checkedIdList) {
+    Map<String, List<String>> map = gson.fromJson(checkedIdList, Map.class);
+    List<String> checkedIds = map.get("checkedIdList");
+    int result = 0;
+    for (String id : checkedIds) {
+      result += cartService.deleteCart(Integer.parseInt(id));
+    }
+
+    return result;
+  }
 }

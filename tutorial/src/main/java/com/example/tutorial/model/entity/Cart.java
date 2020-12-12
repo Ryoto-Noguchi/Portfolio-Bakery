@@ -42,6 +42,9 @@ public class Cart implements Serializable {
   @Column(name = "product_count")
   private int productCount;
 
+  @Column(name = "delete_flag")
+  private boolean deleteFlag;
+
   @Column(name = "created_at")
   private Timestamp createdAt;
 

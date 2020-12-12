@@ -11,42 +11,141 @@
   <header th:insert="fragments/page_header::page-header"></header>
   <main>
     <div class="container-fluid text-center mt-4">
-      <h2 class="page-title"><span th:text="${loginSession.isLogined() == true ? loginSession.userName : 'ゲスト'}"></span>さんのカート</h2>
+      <h2 class="page-title"><span
+          th:text="${loginSession.isLogined() == true ? loginSession.userName : 'ゲスト'}"></span>さんのカート</h2>
 
       <div class="no-data d-flex justify-content-center" th:if="${cartList.isEmpty() == true}">
         <p class="info">カートにはまだ何も追加されていません。</p>
       </div>
+
       <table class="table table-hover table-bordered table-responsive-md text-center" th:if="${cartList.size() > 0}">
         <thead class="thead-light">
           <tr>
-            <th scope="col" style="width: 15%;">選択</th>
+            <th scope="col" style="width: 15%;">
+              <label>全選択
+                <input class="ml-2" type="checkbox" name="allChecked" id="checkbox-all">
+              </label>
+            </th>
             <th scope="col" style="width: 20%;">画像</th>
             <th scope="col" style="width: 15%;">商品名</th>
             <th scope="col" style="width: 15%;">価格(円)</th>
             <th scope="col" style="width: 15%;">個数</th>
             <th scope="col" style="width: 15%;">小計(円)</th>
           </tr>
-          <tbody>
-            <tr th:each="cart : ${cartList}" th:object="${cart}">
-              <td>
-                <input type="checkbox" class="check" th:field="*{id}" th:value="*{id}"><!-- type="checkboxの時はtd:filedにidとnameを指定したい文字列にし、td:valueを別個で設定する-->
-                <label th:for="${#ids.prev('id')}"></label><!-- labelとidの生成については、#idsユーティリティが便利。labelの位置が前か後ろかによって｢prev｣｢next｣を使い分ける-->
-              </td>
-              <td class="frame">
-                <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = *{product.imageFullPath})}" alt="商品画像">
-              </td>
-              <td th:text="*{product.productName}"></td>
-              <td th:text="*{product.price}"></td>
-              <td th:text="*{productCount}"></td>
-              <td th:text="*{product.price * productCount}"></td>
-            </tr>
-          </tbody>
         </thead>
+        <tbody id="boxes">
+          <tr th:each="cart : ${cartList}" th:object="${cart}">
+            <td>
+              <input type="checkbox" class="checkbox" th:field="*{id}" th:value="*{id}">
+              <!-- type="checkboxの時はtd:filedにidとnameを指定したい文字列にし、td:valueを別個で設定する-->
+              <label th:for="${#ids.prev('id')}"></label><!-- labelとidの生成については、#idsユーティリティが便利。labelの位置が前か後ろかによって｢prev｣｢next｣を使い分ける-->
+            </td>
+            <td class="frame">
+              <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = *{product.imageFullPath})}" alt="商品画像">
+            </td>
+            <td th:text="*{product.productName}"></td>
+            <td th:text="*{product.price}"></td>
+            <td class="product-count" th:text="*{productCount}"></td>
+            <td class="subtotal" th:text="*{product.price * productCount}"></td>
+          </tr>
+        </tbody>
       </table>
+      <div class="container-fluid d-flex justify-content-end" th:if="${cartList.size() > 0}">
+        <div>
+          <div class="total-area">
+            <p class="total" style="font-size: 1.5rem; font-weight: bold;">合計金額 : <span id="totalPrice"></span>円</p>
+          </div>
+          <div class="btn-area">
+            <button id="delete-btn" class="btn btn-warning mr-3" disabled>削除</button>
+            <button id="purchase-btn" class="btn btn-info">購入</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
-  <script>
+  <script th:inline="javascript">
+    $(function () {
+      calcTotalAmount(); // 購入個数と金額の合計を算出し、合計欄に設定するメソッド
+
+      $(document).on('change', '.checkbox', function() { // javascriptを使ってhtml要素を変更した後のものには.change()やonChangeは使えないため、このようにdocumentを先頭につける必要がある
+        changeDisabled();
+      }); // チェックボックスに変化があったときに削除ボタンの活性/非活性を操作する
+
+      $('#delete-btn').on('click', function () {
+        let checkedList = $('.checkbox:checked'); // チェックボックスにチェックの入ったものを取得
+        let checkedIdList = [];
+        for (checked of checkedList) {
+          checkedIdList.push($(checked).val()); // ☑️のついたレコードのvalueとして設定されているidを空の配列に入れる
+        }
+        console.log(checkedIdList);
+        deleteCart(checkedList, checkedIdList);
+      });
+
+      // 全選択チェックボックスのつけ外し
+      $('#checkbox-all').on('click', function () {
+        $('.checkbox').prop('checked', this.checked); // this.checkedで全選択チェックボックスの状態と各チェックボックスの状態を同じにする
+        changeDisabled();
+      });
+      $('.checkbox').on('click', function() {
+        if ($('#boxes:checked').length == $('.checkbox').length) {
+          $('#checkbox-all').prop('checked', true);
+        } else {
+          $('#checkbox-all').prop('checked', false);
+        }
+      });
+
+    });
+
+    function deleteCart(checkedList, checkedIdList) {
+      $.ajax({
+        type: 'POST',
+        url: '/tutorial/cart/delete',
+        data: JSON.stringify({ 'checkedIdList': checkedIdList }),
+        dataType: 'json',
+        contentType: 'application/json'
+      }).done(function (data) {
+        for (checked of checkedList) {
+          $(checked).parent().parent().remove(); // ☑️のついたレコード全体を削除
+        }
+        let checkList = $('.checkList'); // ☑️のついたレコードを削除した後、☑️が全て無くなればそのままカートページを更新
+        if (checkList.length == 0) {
+          location.replace('/tutorial/cart/');
+        }
+        calcTotalAmount(); // 再度合計金額を計算して表示する
+        changeDisabled(); // 削除ボタンを非活性化
+        alert(`${data}レコード削除しました`);
+        console.log(`${data}レコード削除しました`);
+      }).fail(function (data) {
+        alert("ajax通信に失敗しました")
+      }).always(function name(params) {
+        console.log("ajax通信しました");
+      });
+    };
+
+    function calcTotalAmount() {
+      let subtotalList = $('.subtotal');
+      let countList = $('.product-count');
+      let totalPrice = 0;
+      $(subtotalList).each(function (index, subtotal) { // subtotalのlengthぶん処理を繰り返す
+        totalPrice += parseInt($(subtotal).text()); // subtotalは↑でStringとして取得されているため、parseIntでintに変換しないとダメ
+      });
+      $('#totalPrice').text(totalPrice);
+    };
+
+    function changeDisabled() {
+      let checkList = $('.checkbox');
+      let disabled = true;
+      for (let check of checkList) {
+        if ($(check).prop('checked')) { // もし☑️がついていればfalseを、ついていなければtrueを削除ボタンの属性につける
+          disabled = false;
+          break;
+        }
+      }
+      console.log(disabled);
+      $('#delete-btn').prop('disabled', disabled);
+    }
+
 
   </script>
 </body>

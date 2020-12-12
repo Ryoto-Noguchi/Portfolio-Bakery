@@ -17,7 +17,7 @@ public class CartService {
   private CartRepository cartRepos;
 
 	public Cart findCart(int userId, int productId) {
-		return cartRepos.findByUserIdAndProductId(userId, productId);
+		return cartRepos.findByUserIdAndProductIdAndDeleteFlagFalseOrderById(userId, productId);
 	}
 
 	public int updateCart(Cart cart) {
@@ -29,7 +29,11 @@ public class CartService {
 	}
 
 	public List<Cart> findCartList(int userId) {
-		return cartRepos.findByUserId(userId);
+		return cartRepos.findByUserIdAndDeleteFlagFalseOrderById(userId);
+	}
+
+	public int deleteCart(int id) {
+		return cartRepos.logicalDeleteById(id);
 	}
 
 }

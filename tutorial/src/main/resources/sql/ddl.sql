@@ -87,7 +87,14 @@ CREATE TABLE tbl_purchase_history (
   purchased_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  delete_flag BOOLEAN DEFAULT FALSE,
   FOREIGN KEY(user_id) REFERENCES mst_user(id),
   FOREIGN KEY(product_id) REFERENCES mst_product(id),
   FOREIGN KEY(destination_id) REFERENCES mst_destination(id)
 );
+
+ALTER TABLE tbl_cart ALTER COLUMN delete_flag SET DEFAULT FALSE;
+ALTER TABLE tbl_cart ADD COLUMN delete_flag BOOLEAN DEFAULT FALSE;
+SELECT * FROM tbl_cart  ORDER BY id;
+
+ALTER TABLE tbl_cart DROP COLUMN delete_flag;
