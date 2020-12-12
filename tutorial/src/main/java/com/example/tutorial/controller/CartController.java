@@ -30,19 +30,19 @@ public class CartController {
   Gson gson = new Gson();
 
   @GetMapping("/")
-  public String goCartPage(Model model) {
-    int userId = loginSession.getUserId();
+  public String goCartPage(Model model, Cart cart) { // 引数にCartインスタンスを入れないとcart.htmlのth:each="cart:${cartList}"の箇所でNoBindingResultエラーが出る
+    int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
     List<Cart> cartList = cartService.findCartList(userId);
     model.addAttribute("cartList", cartList);
+    model.addAttribute("loginSession", loginSession);
     return "cart";
   }
 
   @PostMapping("/add")
   @ResponseBody
   public String add(@RequestBody CartForm form) {
-    int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
+    int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId(); // ユーザID or 仮ユーザIDをユーザIDとする
     int productId = form.getProductId();
-    // String productName = form.getProductName();
     form.setUserId(userId);
 
     Cart cart = new Cart(form); // 新しいカートのレコードをmst_cartテーブルに追加
@@ -56,6 +56,5 @@ public class CartController {
     }
     return gson.toJson(cart);
   }
-
 
 }

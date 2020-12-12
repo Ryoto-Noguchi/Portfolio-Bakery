@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
-	// @Query(value =  "SELECT * FROM tbl_cart WHERE use_id = :userId AND product_id = :productId", nativeQuery = true)
-	// Cart findByUserIdAndProductId(@Param("userId") int userId, @Param("productId") int productId);
 	Cart findByUserIdAndProductId(int userId, int productId);
 
 	@Modifying

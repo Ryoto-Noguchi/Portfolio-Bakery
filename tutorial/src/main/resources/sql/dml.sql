@@ -34,3 +34,4 @@ INSERT INTO mst_product (id, product_name, product_name_kana, product_descriptio
 
 select * from mst_category;
 select * from mst_product order by id;
+select * from tbl_cart;

@@ -10,7 +10,40 @@
 <body>
   <header th:insert="fragments/page_header::page-header"></header>
   <main>
-    
+    <div class="container-fluid text-center mt-4">
+      <h2 class="page-title"><span th:text="${loginSession.isLogined() == true ? loginSession.userName : 'ゲスト'}"></span>さんのカート</h2>
+
+      <div class="no-data d-flex justify-content-center" th:if="${cartList.isEmpty() == true}">
+        <p class="info">カートにはまだ何も追加されていません。</p>
+      </div>
+      <table class="table table-hover table-bordered table-responsive-md text-center" th:if="${cartList.size() > 0}">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width: 15%;">選択</th>
+            <th scope="col" style="width: 20%;">画像</th>
+            <th scope="col" style="width: 15%;">商品名</th>
+            <th scope="col" style="width: 15%;">価格(円)</th>
+            <th scope="col" style="width: 15%;">個数</th>
+            <th scope="col" style="width: 15%;">小計(円)</th>
+          </tr>
+          <tbody>
+            <tr th:each="cart : ${cartList}" th:object="${cart}">
+              <td>
+                <input type="checkbox" class="check" th:field="*{id}" th:value="*{id}"><!-- type="checkboxの時はtd:filedにidとnameを指定したい文字列にし、td:valueを別個で設定する-->
+                <label th:for="${#ids.prev('id')}"></label><!-- labelとidの生成については、#idsユーティリティが便利。labelの位置が前か後ろかによって｢prev｣｢next｣を使い分ける-->
+              </td>
+              <td class="frame">
+                <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = *{product.imageFullPath})}" alt="商品画像">
+              </td>
+              <td th:text="*{product.productName}"></td>
+              <td th:text="*{product.price}"></td>
+              <td th:text="*{productCount}"></td>
+              <td th:text="*{product.price * productCount}"></td>
+            </tr>
+          </tbody>
+        </thead>
+      </table>
+    </div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
   <script>

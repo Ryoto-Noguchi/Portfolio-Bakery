@@ -98,12 +98,11 @@
         <a th:href="@{/index/refresh}">Tutorial Bakery</a>
       </h1>
       <div class="header-right float-right">
-
         <p id="signup">
           <a th:href="@{/index/userRegister}">新規ユーザ登録はこちら</a>
         </p>
         <p id="welcome-message"
-          th:text="'ようこそ！' + ${loginSession == null ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>
+          th:text="'ようこそ！' + ${loginSession.isLogined() == false ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>
       </div>
     </div>
 
@@ -117,16 +116,16 @@
         <!-- ↓ログイン情報の有無で、display:noneのhiddenクラスを付与 -->
         <!-- ↓th:classをつけてしまうとclassが適応されなくなる -->
         <button id="login" type="button"
-          th:class="${loginSession == null ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログイン</button>
+          th:class="${loginSession.isLogined() == false ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログイン</button>
         <button id="logout" type="button"
-          th:class="${loginSession != null ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログアウト</button>
+          th:class="${loginSession.isLogined() == true ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログアウト</button>
       </form>
     </nav>
     <nav class="">
       <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
         <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage/}"
             th:class="${loginSession != null ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
-        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart}"
+        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart/}"
             class="nav-link btn color-white btn-primary p-2 mr-3">カート</a>
         </li>
       </ul>

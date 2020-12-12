@@ -60,7 +60,7 @@ public class IndexController {
    */
   @GetMapping(value = { "/", "/{page:^[1-9][0-9]*$}" })
   public String index(@ModelAttribute("searchForm") SearchForm searchForm, @PathVariable(name = "page") Optional<Integer> page, Model model) {
-    if (loginSession.isLogined() == false) {
+    if (loginSession.isLogined() == false && loginSession.getTmpUserId() == null) { // ログインしてない&仮ユーザIDがない(=初めてページを開いたとき)
       int tempUserId = (int) (Math.random() * 1000000000);
       loginSession.setTmpUserId(tempUserId);
     }
@@ -82,6 +82,7 @@ public class IndexController {
 
     List<Category> categories = categoryService.getCategories();
     model.addAttribute("categories", categories);
+    model.addAttribute("loginSession", loginSession);
     if (searchSession.getCategoryId() != null) { model.addAttribute("categoryId", searchSession.getCategoryId()); }
     if (searchSession.getProductName() != null) { model.addAttribute("productName", searchSession.getProductName()); }
     return "index";
