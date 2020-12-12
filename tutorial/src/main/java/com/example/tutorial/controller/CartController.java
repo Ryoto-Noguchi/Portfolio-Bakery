@@ -62,6 +62,7 @@ public class CartController {
   @PostMapping("/delete")
   @ResponseBody
   public int deleteCart(@RequestBody String checkedIdList) {
+    // TODO ここではMapを使わなければいけないのか？Listではダメなのか検証
     Map<String, List<String>> map = gson.fromJson(checkedIdList, Map.class);
     List<String> checkedIds = map.get("checkedIdList");
     int result = 0;
