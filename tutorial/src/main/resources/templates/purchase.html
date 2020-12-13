@@ -28,7 +28,7 @@
         <tbody>
           <tr th:each="destination, stat: ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
             <td>
-              <input type="radio" th:id="'radio-btn-' + ${stat.count}" name="destinationId" th:value="*{id}" th:checked="${stat.count==1}"> <!-- status.count==1 で先頭のレコードにチェックつける。th:field="*{id}"とするとth:checked="${stat.count==1}"が効かなくなるため、th:id="'radio-btn-' + ${stat.count}"を採用-->
+              <input type="radio" class="radio" th:id="'radio-btn-' + ${stat.count}" name="destinationId" th:value="*{id}" th:checked="${stat.count==1}"> <!-- status.count==1 で先頭のレコードにチェックつける。th:field="*{id}"とするとth:checked="${stat.count==1}"が効かなくなるため、th:id="'radio-btn-' + ${stat.count}"を採用-->
             </td>
             <td>
               <span th:text="*{familyName}"></span>&nbsp;<span th:text="*{firstName}"></span>
@@ -49,7 +49,30 @@
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
   <script>
-    
+    $(function () {
+      $('#delete-btn').on('click', function() {
+        let checked = $('.radio:checked'); // チェックのついたラジオボタンの値を取得
+        let destinationId = $(checked).val();
+        deleteDestination(checked, destinationId);
+      });
+
+      function deleteDestination(checked, destinationId) {
+        $.ajax({
+          type:'POST',
+          url: '/tutorial/purchase/delete',
+          data: destinationId,
+          dataType: 'json',
+          contentType: 'application/json'
+        }).done(function(data) {
+          $(checked).parent().parent().remove();
+          alert(`${data}件の宛先を削除しました`)
+        }).fail(function(){
+          alert("ajax通信に失敗しました");
+        }).always(function(){
+          console.log("ajax通信しました");
+        });
+      };
+    });
   </script>
 </body>
 

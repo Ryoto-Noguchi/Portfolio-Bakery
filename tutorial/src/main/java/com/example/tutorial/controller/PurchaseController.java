@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/tutorial/purchase")
@@ -29,6 +31,14 @@ public class PurchaseController {
     model.addAttribute("destinations", destinations);
     model.addAttribute("loginSession", loginSession);
     return "purchase";
+  }
+
+  @PostMapping("/delete")
+  @ResponseBody
+  public int deleteDestination(@RequestBody String destinationId) {
+    int id = Integer.parseInt(destinationId);
+    int result = destinationService.deleteDestination(id);
+    return result;
   }
 
 }
