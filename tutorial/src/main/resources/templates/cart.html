@@ -101,7 +101,7 @@
       $.ajax({
         type: 'POST',
         url: '/tutorial/cart/delete',
-        data: JSON.stringify({ 'checkedIdList': checkedIdList }),
+        data: JSON.stringify(checkedIdList),
         dataType: 'json',
         contentType: 'application/json'
       }).done(function (data) {

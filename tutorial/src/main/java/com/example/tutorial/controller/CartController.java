@@ -1,7 +1,7 @@
 package com.example.tutorial.controller;
 
 import java.util.List;
-import java.util.Map;
+// import java.util.Map;
 
 import com.example.tutorial.model.entity.Cart;
 import com.example.tutorial.model.form.CartForm;
@@ -57,19 +57,22 @@ public class CartController {
     }
     return gson.toJson(cart);
   }
-
-  @SuppressWarnings("unchecked")
+  
   @PostMapping("/delete")
   @ResponseBody
-  public int deleteCart(@RequestBody String checkedIdList) {
-    // TODO ここではMapを使わなければいけないのか？Listではダメなのか検証
-    Map<String, List<String>> map = gson.fromJson(checkedIdList, Map.class);
-    List<String> checkedIds = map.get("checkedIdList");
+  public int deleteCart(@RequestBody String[] checkedIdList) { // ☑️は複数選択可能なため、配列でデータを渡すため、型はString[]
     int result = 0;
-    for (String id : checkedIds) {
-      result += cartService.deleteCart(Integer.parseInt(id));
+    for (String id : checkedIdList) { // 配列を拡張for文でループしてそれぞれDBから論理削除する
+      result += cartService.deleteCart(Integer.parseInt(id)); // パラメータの型はStringであるためparseIntする
     }
-
     return result;
+    /*
+    ⇩のようにしてMapを使って処理することを可能。その場合はcat.htmlのajaxの条件定義で「data: JSON.stringify({ 'checkedIdList': checkedIdList })」のようにして、keyとvalueを指定しないとダメ
+      Map<String, List<String>> map = gson.fromJson(checkedIdList, Map.class);
+      List<String> checkedIds = map.get("checkedIdList");
+      for (String id : checkedIds) {
+        result += cartService.deleteCart(Integer.parseInt(id));
+      }
+    */
   }
 }
