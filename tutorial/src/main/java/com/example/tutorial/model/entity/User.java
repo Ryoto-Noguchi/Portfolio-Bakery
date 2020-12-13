@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,12 +29,15 @@ public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
+  @Expose
   private int id;
 
   @Column(name = "user_name")
+  @Expose
   private String userName;
 
   @Column(name = "password")
+  @Expose
   private String password;
 
   @Column(name = "mail_address")

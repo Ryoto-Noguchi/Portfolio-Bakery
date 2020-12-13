@@ -5,6 +5,7 @@ import com.example.tutorial.model.form.UserForm;
 import com.example.tutorial.model.session.LoginSession;
 import com.example.tutorial.service.UserService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-  private Gson gson = new Gson();
+  private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); // Gsonは双方向の接続を持ったエンティティーのインスタンスをシリアライズしようとすると、それが無限に続くためstackOverFlowErrorが発生する。これを防ぐにはtoJson()で送りたいデータだけに@Exposeをつけて、Gsonのインスタンスの仕方をこのようにすればエラーが起きない
 
   @Autowired
   private UserService userService;

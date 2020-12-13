@@ -19,17 +19,16 @@
       <table class="table table-hover table-bordered table-responsive-md text-center" th:if="${destinations.size() > 0}">
         <thead class="thead-light">
           <tr>
-            <th scope="col" style="width: 10%;">全選択</th>
+            <th scope="col" style="width: 10%;">選択</th>
             <th scope="col" style="width: 20%;">宛先氏名</th>
             <th scope="col" style="width: 20%;">電話番号</th>
             <th scope="col" style="width: 50%;">住所</th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="destination, status : ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
+          <tr th:each="destination, stat: ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
             <td>
-              <input type="radio" th:checked="${status.count==1}" th:field="*{id}" th:value="*{id}"> <!-- status.count==1 で先頭のレコードにチェックつける-->
-              <label th:for="${#ids.prev('id')}"></label>
+              <input type="radio" th:id="'radio-btn-' + ${stat.count}" name="destinationId" th:value="*{id}" th:checked="${stat.count==1}"> <!-- status.count==1 で先頭のレコードにチェックつける。th:field="*{id}"とするとth:checked="${stat.count==1}"が効かなくなるため、th:id="'radio-btn-' + ${stat.count}"を採用-->
             </td>
             <td>
               <span th:text="*{familyName}"></span>&nbsp;<span th:text="*{firstName}"></span>
@@ -50,7 +49,7 @@
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
   <script>
-
+    
   </script>
 </body>
 

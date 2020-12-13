@@ -69,6 +69,8 @@ CREATE TABLE mst_destination (
 SELECT * FROM mst_destination;
 
 INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (1, '山田', '太郎', '080-1234-5678', '東京都千代田区紀尾井町3-6-2')
+INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (1, '山田', '太郎', '080-9472-5678', '東京都千代田区赤坂見附6-8-2')
+INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (3, '鈴木', '花子', '080-9876-5432', '東京都新宿区市谷砂土町35-6-7')
 
 
 
