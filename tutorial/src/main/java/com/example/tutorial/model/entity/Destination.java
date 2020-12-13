@@ -46,6 +46,9 @@ public class Destination implements Serializable {
   @Column(name = "status")
   private short status;
 
+  @Column(name = "delete_flag")
+  private boolean deleteFlag;
+
   @Column(name = "created_at")
   private Timestamp createdAt;
 

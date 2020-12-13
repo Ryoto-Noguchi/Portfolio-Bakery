@@ -31,16 +31,16 @@ public class Cart implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private int id;
+  private Integer id;
 
   @Column(name = "user_id")
-  private int userId;
+  private Integer userId;
 
   @Column(name = "product_id")
-  private int productId;
+  private Integer productId;
 
   @Column(name = "product_count")
-  private int productCount;
+  private Integer productCount;
 
   @Column(name = "delete_flag")
   private boolean deleteFlag;

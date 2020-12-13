@@ -38,7 +38,7 @@
             <td>
               <input type="checkbox" class="checkbox" th:field="*{id}" th:value="*{id}">
               <!-- type="checkboxの時はtd:filedにidとnameを指定したい文字列にし、td:valueを別個で設定する-->
-              <label th:for="${#ids.prev('id')}"></label><!-- labelとidの生成については、#idsユーティリティが便利。labelの位置が前か後ろかによって｢prev｣｢next｣を使い分ける-->
+              <label th:for="${#ids.prev('id')}"></label><!-- labelとidの生成については、#idsユーティリティが便利。labelの位置が前か後ろかによって｢prev｣｢next｣を使い分ける。${#ids.prev('id')}の「id」はth:fieldで指定されるid-->
             </td>
             <td class="frame">
               <img class="w-100" style="height: auto;" th:src="@{{imagePath} (imagePath = *{product.imageFullPath})}" alt="商品画像">
@@ -57,7 +57,9 @@
           </div>
           <div class="btn-area">
             <button id="delete-btn" class="btn btn-warning mr-3" disabled>削除</button>
-            <button id="purchase-btn" class="btn btn-info">購入</button>
+            <form th:action="@{/tutorial/purchase/}" method="post" class="d-inline">
+              <button type="submit" name="purchaseForm" id="purchase-btn" class="btn btn-info">購入</button>
+            </form>
           </div>
         </div>
       </div>
@@ -65,6 +67,7 @@
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
   <script th:inline="javascript">
+    /*<![CDATA[*/
     $(function () {
       calcTotalAmount(); // 購入個数と金額の合計を算出し、合計欄に設定するメソッド
 
@@ -95,6 +98,14 @@
         }
       });
 
+      // 購入ボタン押下時にログインしているかチェック
+      $('#purchase-btn').on('click', function() {
+        let userId = /*[[${loginSession.userId}]]*/ '';
+        if (userId == null) { // ログインしていなかったら
+          alert('ログインしてください');
+          return false; // クリックイベントを終了する
+        }
+      });
     });
 
     function deleteCart(checkedList, checkedIdList) {
@@ -146,7 +157,7 @@
       $('#delete-btn').prop('disabled', disabled);
     }
 
-
+    /*]]>*/
   </script>
 </body>
 

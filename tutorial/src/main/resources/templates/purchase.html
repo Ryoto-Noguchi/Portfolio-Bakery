@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Bakery</title>
+</head>
+
+<body>
+  <header th:insert="fragments/page_header::page-header"></header>
+  <main>
+    <div class="container text-cetner">
+      <div class="text-center">
+        <h2 th:if="${destinations.size() > 0}" class="page-title">宛先を選択してください</h2>
+        <p th:if="${destinations.size() > 0}" class="info">宛先の新規登録、削除も可能です</p>
+        <p th:if="${destinations.size() == 0}" class="info">宛先情報がありません、新規登録してください</p>
+      </div>
+      <table class="table table-hover table-bordered table-responsive-md text-center" th:if="${destinations.size() > 0}">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width: 10%;">全選択</th>
+            <th scope="col" style="width: 20%;">宛先氏名</th>
+            <th scope="col" style="width: 20%;">電話番号</th>
+            <th scope="col" style="width: 50%;">住所</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="destiantion, status : ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
+            <td>
+              <input type="radio" th:checked="${status.count==1}" th:field="*{id}" th:value="*{id}"> <!-- status.count==1 で先頭のレコードにチェックつける-->
+              <label th:for="${#ids.prev('id')}"></label>
+            </td>
+            <td>
+              <span th:text="*{familyName}"></span>&nbsp;<span th:text="*{firstName}"></span>
+            </td>
+            <td th:text="*{telNumber}"></td>
+            <td th:text="*{address}"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="btn-area d-flex justify-content-center text-center align-items-center">
+        <button type="button" id="delete-btn" class="btn btn-warning mr-3" th:if="${destinations.size() > 0}">削除</button>
+        <form name="destinationForm" th:action="@{/tutorial/destination/}" class="d-inline mr-3">
+          <button class="btn btn-success" type="submit">新規宛先登録</button>
+        </form>
+        <button type="button" id="settlement-button" class="btn btn-info mr-3">決済</button>
+      </div>
+    </div>
+  </main>
+  <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+  <script>
+
+  </script>
+</body>
+
+</html>

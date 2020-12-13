@@ -95,6 +95,8 @@ CREATE TABLE tbl_purchase_history (
 
 ALTER TABLE tbl_cart ALTER COLUMN delete_flag SET DEFAULT FALSE;
 ALTER TABLE tbl_cart ADD COLUMN delete_flag BOOLEAN DEFAULT FALSE;
+ALTER TABLE mst_destination ADD COLUMN delete_flag BOOLEAN DEFAULT FALSE;
 SELECT * FROM tbl_cart WHERE user_id = 1 ORDER BY id;
+SELECT * FROM mst_destination ORDER BY id;
 
 ALTER TABLE tbl_cart DROP COLUMN delete_flag;

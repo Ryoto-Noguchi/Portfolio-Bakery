@@ -28,15 +28,15 @@ public class AuthController {
 
   @PostMapping("/login")
   public String login(@RequestBody UserForm form) { // @RequestBodyを付与することによって自動的にJSONデータをJavaで扱えるようにする
-    User user = userService.findUser(form.getUserName(), form.getPassword());
+    User user = userService.findUser(form.getUserName(), form.getPassword()); // ログインフォームに入力されたユーザ名とパスワードと一致するユーザを取得
 
-    if (user != null) {
-      loginSession.setTmpUserId(0);
-			loginSession.setLogined(true);
+    if (user != null) { // ユーザが存在すれば
+      loginSession.setTmpUserId(null); // トップページ初期表示時に付与した仮ユーザIDをnullにして破棄
+			loginSession.setLogined(true); // ログイン状態にする
 			loginSession.setUserId(user.getId());
 			loginSession.setUserName(user.getUserName());
 			loginSession.setPassword(user.getPassword());
-    } else {
+    } else { // 一致するユーザ情報がなけらば、仮ユーザIDはそのまま
 			loginSession.setLogined(false);
 			loginSession.setUserId(null);
 			loginSession.setUserName(null);
@@ -47,9 +47,9 @@ public class AuthController {
 
   @PostMapping("/logout")
   public String logout() {
-    loginSession.setTmpUserId(0);
+    loginSession.setTmpUserId(null);
 		loginSession.setLogined(false);
-		loginSession.setUserId(0);
+		loginSession.setUserId(null);
 		loginSession.setUserName(null);
     loginSession.setPassword(null);
     return "";

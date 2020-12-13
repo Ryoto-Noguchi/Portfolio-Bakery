@@ -62,7 +62,7 @@ public class IndexController {
   public String index(@ModelAttribute("searchForm") SearchForm searchForm, @PathVariable(name = "page") Optional<Integer> page, Model model) {
     if (loginSession.isLogined() == false && loginSession.getTmpUserId() == null) { // ログインしてない&仮ユーザIDがない(=初めてページを開いたとき)
       int tempUserId = (int) (Math.random() * 1000000000);
-      loginSession.setTmpUserId(tempUserId);
+      loginSession.setTmpUserId(tempUserId); // ランダムな整数を仮ユーザIDとしてログインセッションに登録
     }
 
     int currentPage = page.orElse(1); // 押下されたページリンクの数字(リクエストされたページ番号)
