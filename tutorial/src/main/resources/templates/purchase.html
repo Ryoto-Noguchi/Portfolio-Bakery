@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="destiantion, status : ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
+          <tr th:each="destination, status : ${destinations}" th:object="${destination}"><!-- stautsをこのようにつけることでループの状態を確認できる変数を追加。https://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/thymeleaf/th_each.html 参照-->
             <td>
               <input type="radio" th:checked="${status.count==1}" th:field="*{id}" th:value="*{id}"> <!-- status.count==1 で先頭のレコードにチェックつける-->
               <label th:for="${#ids.prev('id')}"></label>

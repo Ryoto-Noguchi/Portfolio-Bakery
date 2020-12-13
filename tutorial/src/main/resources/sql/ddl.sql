@@ -61,20 +61,28 @@ CREATE TABLE mst_destination (
   tel_number VARCHAR(13),
   address VARCHAR(255) NOT NULL,
   status SMALLINT NOT NULL DEFAULT 1,
+  delete_flag BOOLEAN NOT NULL DEFAULT 'FALSE',
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES mst_user(id)
 );
+SELECT * FROM mst_destination;
+
+INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (1, '山田', '太郎', '080-1234-5678', '東京都千代田区紀尾井町3-6-2')
+
+
 
 CREATE TABLE tbl_cart (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
   product_count INTEGER NOT NULL,
+  delete_flag BOOLEAN NOT NULL DEFAULT 'FALSE',
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(product_id) REFERENCES mst_product(id)
 );
+SELECT * FROM tbl_cart;
 
 CREATE TABLE tbl_purchase_history (
   id SERIAL PRIMARY KEY,
