@@ -44,8 +44,8 @@ public class PurchaseHistory implements Serializable {
   @Column(name = "destination_id")
   private int destinationId;
 
-  @Column(name = "status")
-  private short status;
+  @Column(name = "delete_flag")
+  private boolean deleteFlag;
 
   @Column(name = "purchased_at")
   private Timestamp purchasedAt;

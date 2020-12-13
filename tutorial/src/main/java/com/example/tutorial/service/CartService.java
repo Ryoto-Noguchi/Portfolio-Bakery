@@ -36,4 +36,8 @@ public class CartService {
 		return cartRepos.logicalDeleteById(id);
 	}
 
+	public int deleteCartByUserId(int userId) {
+		return cartRepos.logicalDeleteByUserId(userId);
+	}
+
 }

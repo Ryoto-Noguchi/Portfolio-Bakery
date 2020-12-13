@@ -84,7 +84,8 @@ CREATE TABLE tbl_cart (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(product_id) REFERENCES mst_product(id)
 );
-SELECT * FROM tbl_cart;
+SELECT * FROM tbl_cart WHERE delete_flag = FALSE;
+delete from tbl_cart WHERE delete_flag = FALSE;
 
 CREATE TABLE tbl_purchase_history (
   id SERIAL PRIMARY KEY,
@@ -102,6 +103,8 @@ CREATE TABLE tbl_purchase_history (
   FOREIGN KEY(product_id) REFERENCES mst_product(id),
   FOREIGN KEY(destination_id) REFERENCES mst_destination(id)
 );
+SELECT * FROM tbl_purchase_history;
+DELETE FROM tbl_purchase_history;
 
 ALTER TABLE tbl_cart ALTER COLUMN delete_flag SET DEFAULT FALSE;
 ALTER TABLE tbl_cart ADD COLUMN delete_flag BOOLEAN DEFAULT FALSE;
@@ -110,3 +113,14 @@ SELECT * FROM tbl_cart WHERE user_id = 1 ORDER BY id;
 SELECT * FROM mst_destination ORDER BY id;
 
 ALTER TABLE tbl_cart DROP COLUMN delete_flag;
+
+
+INSERT INTO tbl_purchase_history  (user_id, product_id, product_count, price, destination_id)
+  SELECT cart.user_id, cart.product_id, cart.product_count, product.price, destination.id
+  FROM tbl_cart AS cart
+    INNER JOIN mst_product AS product
+    ON cart.product_id = product.id
+    INNER JOIN mst_destination AS destination
+    ON cart.user_id = destination.user_id
+  WHERE cart.user_id = :#{#cart.userId}
+  AND destination.id = :#{#cart.destinationId}

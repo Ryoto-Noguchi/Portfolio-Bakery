@@ -56,6 +56,12 @@
         deleteDestination(checked, destinationId);
       });
 
+      $('#settlement-button').on('click', function() {
+        let checked = $('.radio:checked'); // チェックのついたラジオボタンの値を取得
+        let destinationId = $(checked).val();
+        settlePayament(destinationId);
+      });
+
       function deleteDestination(checked, destinationId) {
         $.ajax({
           type:'POST',
@@ -65,10 +71,27 @@
           contentType: 'application/json'
         }).done(function(data) {
           $(checked).parent().parent().remove();
-          alert(`${data}件の宛先を削除しました`)
+          alert(`${data}件の宛先を削除しました`);
+          location.replace('/tutorial/purchase/');
         }).fail(function(){
           alert("ajax通信に失敗しました");
         }).always(function(){
+          console.log("ajax通信しました");
+        });
+      };
+
+      function settlePayament(destinationId) {
+        $.ajax({
+          type:'POST',
+          url: '/tutorial/purchase/settle',
+          data: destinationId,
+          dataType: 'json',
+          contentType: 'application/json'
+        }).done(function(data) {
+          alert(`${data}件の決済が完了しました`)
+        }).fail(function(data) {
+          alert("ajax通信に失敗しました");
+        }).always(function(data) {
           console.log("ajax通信しました");
         });
       };

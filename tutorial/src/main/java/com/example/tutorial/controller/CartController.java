@@ -34,7 +34,6 @@ public class CartController {
   public String goCartPage(Model model, Cart cart) { // 引数にCartインスタンスを入れないとcart.htmlのth:each="cart:${cartList}"の箇所でNoBindingResultエラーが出る
     int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
     List<Cart> cartList = cartService.findCartList(userId);
-    System.out.println("カートの持ち主" + cartList.get(1).getUserId());
     model.addAttribute("cartList", cartList);
     model.addAttribute("loginSession", loginSession);
     return "cart";
@@ -57,6 +56,7 @@ public class CartController {
       System.out.println("カートを" + result + "件追加しました");
     }
     return gson.toJson(cart);
+    // TODO 同じ商品を続けて追加できない不具合
   }
 
   @PostMapping("/delete")

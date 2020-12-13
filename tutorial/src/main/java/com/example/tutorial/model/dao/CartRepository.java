@@ -17,7 +17,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
 	@Modifying
 	@Query(value = "UPDATE tbl_cart SET product_counnt = product_count + :#{#cart.productCount} WEHRE user_id = :#{#cart.userId} AND product_id = :#{#cart.productId}", nativeQuery = true)
-	int updateCart(@Param("cart") Cart cart);
+	int updateCart(@Param("cart") Cart cart); // @Paramはパラメータを任意の文字列に指定してクエリの中で当てはめることができる。これによってリファクタリングなどでパラメーターの文字列が変わった場合も対応できる
 
 	@Modifying
 	@Query(value = "INSERT INTO tbl_cart (user_id, product_id, product_count) VALUES (:#{#cart.userId}, :#{#cart.productId}, :#{#cart.productCount})", nativeQuery = true)
@@ -27,6 +27,11 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
 	@Modifying
 	@Query(value = "UPDATE tbl_cart SET delete_flag = TRUE WHERE id = :id", nativeQuery = true)
-	int logicalDeleteById(int id);
+	int logicalDeleteById(@Param("id") int id);
+
+	@Modifying
+	@Query(value = "UPDATE tbl_cart SET delete_flag = TRUE WHERE user_id = :userId", nativeQuery = true)
+	int logicalDeleteByUserId(@Param("userId") int userId);
+
 
 }
