@@ -56,7 +56,6 @@ public class CartController {
       System.out.println("カートを" + result + "件追加しました");
     }
     return gson.toJson(cart);
-    // TODO 同じ商品を続けて追加できない不具合
   }
 
   @PostMapping("/delete")

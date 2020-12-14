@@ -26,6 +26,7 @@ public class PurchaseHistoryService {
     int result = 0;
     for (Cart cart : carts) {
       result += historyRepos.insert(cart, destinationId);
+      System.out.println(result + "件追加しました");
     }
     return result;
   }
