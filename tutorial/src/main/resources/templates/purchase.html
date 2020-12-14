@@ -41,7 +41,7 @@
       <div class="btn-area d-flex justify-content-center text-center align-items-center">
         <button type="button" id="delete-btn" class="btn btn-warning mr-3" th:if="${destinations.size() > 0}">削除</button>
         <form name="destinationForm" th:action="@{/tutorial/destination/}" class="d-inline mr-3">
-          <button class="btn btn-success" type="submit">新規宛先登録</button>
+          <button id="destination-register-btn" class="btn btn-success" type="submit">新規宛先登録</button>
         </form>
         <button type="button" id="settlement-button" class="btn btn-info mr-3">決済</button>
       </div>

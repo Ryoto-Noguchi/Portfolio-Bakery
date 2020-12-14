@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Bakery</title>
+</head>
+
+<body>
+  <header th:insert="fragments/page_header::page-header"></header>
+  <main>
+    <div class="container text-center mt-4">
+      <div class="page-title-area text-center">
+        <h2 class="page-title">宛先登録</h2>
+      </div>
+      <table class="table table-hover table-bordered table-responsive-md text-center" th:object=${user}>
+        <tr>
+          <th scope="row">宛先氏名</th>
+          <td>
+            <input class="form-input" type="text" th:field="*{familyName}" placeholder="姓" maxlength="16" style="width: 45%;">
+            <input class="form-input" type="text" th:field="*{firstName}" placeholder="名" maxlength="16" style="width: 45%;">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">住所</th>
+          <td>
+            <input class="form-input" type="text" id="address" name="address" placeholder="東京都千代田区四谷3-6-2" maxlength="50">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">電話番号<small class="ml-2">※半角数字(ハイフン有り)</small></th>
+          <td>
+            <input class="form-input" type="tel" id="tel-number" name="telNumber" placeholder="080-4593-4556" maxlength="13">
+          </td>
+        </tr>
+      </table>
+      <div class="btn-area">
+        <button type="button" id="confirm-btn" class="btn btn-success m-2">確認</button>
+        <button type="button" id="clear-btn" class="btn btn-warning m-2">クリア</button>
+      </div>
+    </div>
+  </main>
+  <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+  <script>
+
+  </script>
+</body>
+
+</html>

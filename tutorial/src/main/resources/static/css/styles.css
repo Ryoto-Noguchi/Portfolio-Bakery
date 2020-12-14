@@ -70,3 +70,7 @@ a:hover {
   font-weight: bold;
   border-bottom: 1px black solid;
 }
+
+.form-input {
+  width: 90%;
+}
