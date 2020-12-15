@@ -81,13 +81,16 @@ const validator = {
 const checker = {
   // 姓チェック
   familyName: (target) => {
+    // targetは入力されたfamilyName
     const title = "「姓」";
     let errMsg = new Array();
     if (validator.isEmpty(target)) {
-      errMsg.push(title + validateConstants.ERR_MSG.EMPTY);
+      // familyNameの入力欄が空の時
+      errMsg.push(title + validateConstants.ERR_MSG.EMPTY); // "が空欄です。"
     }
     if (validator.overMax(target, validateConstants.FAMILY_NAME_MAX)) {
-      errMsg.push(title + validateConstants.ERR_MSG.OVER_MAX);
+      // 入力された値が最大文字列数の16より大きい場合
+      errMsg.push(title + validateConstants.ERR_MSG.OVER_MAX); // "の文字数が最大値を超えています。"
     }
     return errMsg;
   },
@@ -197,3 +200,64 @@ const checker = {
     return errMsg;
   },
 };
+
+/**
+ * 入力チェックする
+ * @param checkerConfig エラーチェック用の設定オブジェクト。destination.html l.66〜l.70で指定したjson
+ * @returns errInfo　isError:エラーメッセージがあるかないかのフラグ,errMsg：エラーメッセージ
+ */
+function validate(checkerConfig) {
+  // エラー情報オブジェクト
+  let errInfo = {
+    isError: false,
+    errMsg: new Array(),
+  };
+
+  for ([key, value] of Object.entries(checkerConfig)) {
+    // errMsgがもしあれば、key=familyName, value="が空欄です"のようにkeyとvalueごとに配列に入れる
+    let obj = $("input[name=" + key + "]"); // 各入力項目のname属性を変数として[familyName, fristName, address, telNumber]の配列を作る
+    value($(obj).val()).forEach(function (value, index) {
+      // valueであるかくエラーメッセージををerrMsg配列に入れる
+      errInfo.errMsg.push(value);
+    });
+  }
+
+  if (errInfo.errMsg.length > 0) {
+    // 1つの項目でもエラーがあればisErrorをtrueにする
+    errInfo.isError = true;
+  }
+
+  return errInfo;
+}
+
+/**
+ * エラーメッセージダイアログを作成する
+ * @param errMsg エラーメッセージ
+ * @returns なし
+ */
+function createErrorDialog(errMsg) {
+  clearErrorDialog();
+
+  errMsg.forEach(function (value) {
+    for ([key, value] of Object.entries(errorSelector)) { // destination.html l.51で指定したerrorSelector
+      if (value.indexOf(`「${key}」`) > -1) {
+        $(value).removeClass("hidden");
+        let s = $(value).html();
+        $(value).html(s + value + "<br />");
+      }
+    }
+  });
+}
+
+/**
+ * エラーメッセージダイアログを初期化する
+ * @returns	なし
+ */
+function clearErrorDialog() {
+	for (let value of Object.valnues(errorSelector)) { // '姓': '.familyNameError'の値の部分だけを配列に入れていく。これを繰り返す
+		$(value).html(''); // 入力された文字列を空にする
+		if (!$(value).hasClass('hidden')) { // hiddenクラスがついていなければつける
+			$(value).addClass('hidden');
+		}
+	}
+}
