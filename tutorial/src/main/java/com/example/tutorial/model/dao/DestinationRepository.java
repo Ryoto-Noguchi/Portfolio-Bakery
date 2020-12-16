@@ -18,4 +18,8 @@ public interface DestinationRepository extends JpaRepository<Destination, Intege
 	@Query(value = "UPDATE mst_destination SET delete_flag = TRUE WHERE id = :id", nativeQuery = true)
 	int logicalDeleteById(int id);
 
+	@Modifying
+	@Query(value = "INSERT INTO mst_destination (user_id, family_name, first_name, address, tel_number) VALUES (:#{#destination.userId}, :#{#destination.familyName}, :#{#destiantion.firstName}, :#{#destination.address}, :#{#destination.telNumber})", nativeQuery = true)
+	int insert(Destination destination);
+
 }

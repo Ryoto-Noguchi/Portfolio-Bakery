@@ -18,24 +18,27 @@
         <tr>
           <th scope="row">宛先氏名</th>
           <td>
-            <input class="form-input" type="text" th:field="*{familyName}" placeholder="姓" pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可" maxlength="16"
-              style="width: 45%;">
-            <input class="form-input" type="text" th:field="*{firstName}" placeholder="名" pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可" maxlength="16"
-              style="width: 45%;">
+            <input class="form-input" type="text" th:field="*{familyName}" placeholder="姓"
+              pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可"
+              maxlength="16" style="width: 45%;">
+            <input class="form-input" type="text" th:field="*{firstName}" placeholder="名"
+              pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可"
+              maxlength="16" style="width: 45%;">
           </td>
         </tr>
         <tr>
           <th scope="row">住所</th>
           <td>
-            <input class="form-input" type="text" id="address" name="address" placeholder="東京都千代田区四谷3-6-2" pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可"
+            <input class="form-input" type="text" id="address" name="address" placeholder="東京都千代田区四谷3-6-2"
+              pattern="^[^\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF61-\uFF9F]*$" title="全角英数と半角ｶﾀｶﾅは入力不可"
               maxlength="50">
           </td>
         </tr>
         <tr>
           <th scope="row">電話番号<small class="ml-2">※半角数字(ハイフン有り)</small></th>
           <td>
-            <input class="form-input" type="tel" id="tel-number" name="telNumber" placeholder="080-4593-4556" pattern="\d{2,4}-\d{2,4}-\d{3,4}" title="半角数字(ハイフンあり)で入力してください"
-              maxlength="13">
+            <input class="form-input" type="tel" id="telNumber" name="telNumber" placeholder="080-4593-4556"
+              pattern="\d{2,4}-\d{2,4}-\d{3,4}" title="半角数字(ハイフンあり)で入力してください" maxlength="13">
           </td>
         </tr>
       </table>
@@ -44,6 +47,8 @@
         <button type="button" id="clear-btn" class="btn btn-warning m-2">クリア</button>
       </div>
     </div>
+    <!-- Modal Dialog (入力内容確認) -->
+    <div th:insert="fragments/dialog_input_destination_confirm::dialog-input-destination-confirm"></div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
   <script>
@@ -53,9 +58,15 @@
         $('table').find('input').val(""); // tableタグ内の全てのinputの値を空にする
       });
 
-      $('#cofirm-btn').on('click', function () {
-
+      $('#confirm-btn').on('click', function () {
+        $('#destinationConfirm').dialog('open');
       });
+    });
+
+    //jQuery-UIダイアログの初期設定
+    $(function () {
+      $('#inputDestinationError').dialog(dialogConfig.inputDestinationError);
+      $('#destinationConfirm').dialog(dialogConfig.inputDestinationConfirm);
     });
 
   </script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Angular Bakery</title>
+</head>
+<body>
+
+<th:block th:fragment="dialog-input-destination-confirm">
+	<!-- dialogConfig.jsのl.164の「inputDestinationConfirm」でajax通信 -->
+	<div id="destinationConfim" title="入力内容確認" class="hidden">
+		<table class="table table-bordered table-hover table-responsive-md text-center">
+			<tr>
+				<th scope="row">宛先氏名</th>
+				<td>
+					<span id="familyNameConfrm"></span>
+					<span id="firstNameConfirm"></span>
+				</td>
+			</tr>
+			<tr scope="row">
+				<th>住所</th>
+				<td>
+					<span id="addressConfirm"></span>
+				</td>
+			</tr>
+			<tr scope="row">
+				<th>電話番号</th>
+				<td>
+					<span id="telNumberConfrim"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</th:block>
+
+<script>
+  $(function() {
+    $('#familyNameConfrim').text($('.form-input input[name=faimyName]').val());
+    $('#firstNameConfrim').text($('#firstName').val());
+    $('#addressConfrim').text($('#address').val());
+    $('#telNumberConfrim').text($('#telNumber').val());
+
+    $('table').on('blur', function() {
+      console.log('aaaaaaaaa');
+    });
+  });
+</script>
+
+</body>
+</html>

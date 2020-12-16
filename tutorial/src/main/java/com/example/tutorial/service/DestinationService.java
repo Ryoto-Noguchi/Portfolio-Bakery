@@ -26,4 +26,8 @@ public class DestinationService {
 		return destinationRepos.logicalDeleteById(id);
 	}
 
+	public int insertDestination(Destination destination) {
+		return destinationRepos.insert(destination);
+	}
+
 }
