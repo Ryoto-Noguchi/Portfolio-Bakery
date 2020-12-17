@@ -43,7 +43,7 @@
         </tr>
       </table>
       <div class="btn-area">
-        <button type="button" id="confirm-btn" class="btn btn-success m-2">確認</button>
+        <button type="button" id="open-confirm" class="btn btn-success m-2">確認</button>
         <button type="button" id="clear-btn" class="btn btn-warning m-2">クリア</button>
       </div>
     </div>
@@ -58,15 +58,58 @@
         $('table').find('input').val(""); // tableタグ内の全てのinputの値を空にする
       });
 
-      $('#confirm-btn').on('click', function () {
-        $('#destinationConfirm').dialog('open');
+      $('#dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        minWidth: 600,
+        buttons: [
+          {
+            text: '登録する',
+            click: function () {
+              let jsonString = {
+                'familyName': $('#familyName'),
+                'firstName': $('#firstName'),
+                'address': $('#address'),
+                'telNumber': $('telNumber')
+              };
+              $.ajax({
+                type: 'POST',
+                url: 'tutorial/destination/register',
+                data: JSON.stringify(jsonString),
+                contentType: 'application/json',
+                dataType: 'json',
+              }).done(function (data) {
+                alert('新規宛先を登録しました');
+                location.href = '/tutorial/purchase';
+              }).fail(function (data) {
+                alert('ajax通信に失敗しました');
+              }).always(function (data) {
+                console.log('ajax通信しました');
+              });
+              $(this).dialog('close');
+            }
+          },
+          {
+            text: '戻って修正する',
+            click: function () {
+              $(this).dialog('close');
+            }
+          }
+        ],
+        open: function (event, ui) {
+          // alert('YES');
+          $('#familyNameConfirm').text($('#familyName').val());
+          $('#firstNameConfirm').text($('#firstName').val());
+          $('#addressConfirm').text($('#address').val());
+          $('#telNumberConfirm').text($('#telNumber').val());
+        }
       });
-    });
 
-    //jQuery-UIダイアログの初期設定
-    $(function () {
-      $('#inputDestinationError').dialog(dialogConfig.inputDestinationError);
-      $('#destinationConfirm').dialog(dialogConfig.inputDestinationConfirm);
+      $('#open-confirm').click(function () {
+        console.log('確認ボタンが押されました');
+        $('#dialog').dialog('open');
+      });
     });
 
   </script>

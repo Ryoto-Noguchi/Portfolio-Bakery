@@ -7,13 +7,12 @@
 <body>
 
 <th:block th:fragment="dialog-input-destination-confirm">
-	<!-- dialogConfig.jsのl.164の「inputDestinationConfirm」でajax通信 -->
-	<div id="destinationConfim" title="入力内容確認" class="hidden">
+	<div id="dialog" title="入力内容確認" class="hidden">
 		<table class="table table-bordered table-hover table-responsive-md text-center">
 			<tr>
 				<th scope="row">宛先氏名</th>
 				<td>
-					<span id="familyNameConfrm"></span>
+					<span id="familyNameConfirm"></span>
 					<span id="firstNameConfirm"></span>
 				</td>
 			</tr>
@@ -34,16 +33,16 @@
 </th:block>
 
 <script>
-  $(function() {
-    $('#familyNameConfrim').text($('.form-input input[name=faimyName]').val());
-    $('#firstNameConfrim').text($('#firstName').val());
-    $('#addressConfrim').text($('#address').val());
-    $('#telNumberConfrim').text($('#telNumber').val());
+  // $(function() {
+  //   $('#familyNameConfirm').text($('#familyName'));
+  //   $('#firstNameConfirm').text($('#firstName').val());
+  //   $('#addressConfirm').text($('#address').val());
+  //   $('#telNumberConfirm').text($('#telNumber').val());
 
-    $('table').on('blur', function() {
-      console.log('aaaaaaaaa');
-    });
-  });
+  //   $('table').on('blur', function() {
+  //     console.log('aaaaaaaaa');
+  //   });
+  // });
 </script>
 
 </body>
