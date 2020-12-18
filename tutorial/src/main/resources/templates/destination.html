@@ -97,8 +97,8 @@
             }
           }
         ],
+        // ↓以下のようにopen: function() {}とすることでダイアログを開いた時の処理を実行できる
         open: function (event, ui) {
-          // alert('YES');
           $('#familyNameConfirm').text($('#familyName').val());
           $('#firstNameConfirm').text($('#firstName').val());
           $('#addressConfirm').text($('#address').val());
@@ -107,11 +107,33 @@
       });
 
       $('#open-confirm').click(function () {
-        console.log('確認ボタンが押されました');
-        $('#dialog').dialog('open');
+        // $('#dialog').dialog('open');
+        bootbox.confirm({
+          title: "入力内容確認",
+          backdrop: true,
+          centerVertical: true,
+          message: "登録内容はこちらで間違い無いですか？",
+          locale: 'ja',
+          buttons: {
+            confirm: {
+              label: '<i class="fa fa-check"></i> 登録',
+              className: 'btn-success'
+            },
+            cancel: {
+              label: '<i class="fa fa-times"></i> 戻って修正',
+              className: 'btn-warning'
+            }
+          },
+          callback: function (result) {
+            if (result) {
+              console.log('YES');
+            } else {
+              console.log('NO');
+            }
+          }
+        });
       });
     });
-
   </script>
 </body>
 
