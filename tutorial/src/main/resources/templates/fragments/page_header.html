@@ -105,7 +105,7 @@
       </h1>
       <div class="header-right float-right">
         <p id="signup">
-          <a th:href="@{/index/userRegister}">新規ユーザ登録はこちら</a>
+          <a th:href="@{/tutorial/user/}">新規ユーザ登録はこちら</a>
         </p>
         <p id="welcome-message"
           th:text="'ようこそ！' + ${loginSession.isLogined() == false ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Bakery</title>
+</head>
+
+<body>
+  <header th:insert="fragments/page_header::page-header"></header>
+  <main>
+    <div class="container d-flex justify-content-center table-responsive-md">
+      <div class="page-title-area">
+        <h2 class="page-title">新規ユーザ登録</h2>
+      </div>
+      <table class="table table-hover table-bordered text-center">
+        <tr>
+          <th scope="row">氏名</th>
+          <td>
+            <input type="text" name="familyName" placeholder="山田" maxlength="16" />
+            <input type="text" name="firstName" placeholder="太郎" maxlength="16" />
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">ふりがな</th>
+          <td>
+            <input type="text" name="familyNameKana" placeholder="やまだ" maxlength="16" />
+            <input type="text" name="firstNameKana" placeholder="たろう" maxlength="16" />
+          </td>
+        </tr>
+        <tr>
+					<label><input type="radio" name="gender" value="男性" checked />男性</label>
+					<label><input type="radio" name="gender" value="女性" />女性</label>
+        </tr>
+        <tr>
+          <th scope="row">ユーザ名</th>
+          <td>
+            <input type="email" name="userName" placeholder="myaccount@abc.com" maxlength="32" />
+            <button id="checkUserName">重複確認</button>
+            <span id="checkOK" class="hidden">OK</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">パスワード</th>
+          <td>
+            <input type="password" name="password" placeholder="パスワード" maxlength="16" />
+          </td>
+        </tr>
+      </table>
+      <div class="btn-area">
+        <a type="button" id="back-btn" class="btn btn-primary m-3" href="javascript:history.back();">戻る</a>
+        <button id="confirm-btn" class="btn btn-success">確認する</button>
+      </div>
+    </div>
+
+
+    <!-- Modal Dialog (入力内容確認) -->
+    <div th:insert="fragments/dialog_input_destination_confirm::dialog-input-destination-confirm"></div>
+  </main>
+  <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+
+</body>
+
+</html>
