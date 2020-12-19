@@ -10,11 +10,11 @@
 <body>
   <header th:insert="fragments/page_header::page-header"></header>
   <main>
-    <div class="container d-flex justify-content-center table-responsive-md">
+    <div class="container text-center mt-5">
       <div class="page-title-area">
         <h2 class="page-title">新規ユーザ登録</h2>
       </div>
-      <table class="table table-hover table-bordered text-center">
+      <table class="table table-hover table-bordered text-center table-responsive-md">
         <tr>
           <th scope="row">氏名</th>
           <td>
@@ -30,14 +30,17 @@
           </td>
         </tr>
         <tr>
-					<label><input type="radio" name="gender" value="男性" checked />男性</label>
-					<label><input type="radio" name="gender" value="女性" />女性</label>
+          <th>性別</th>
+          <td>
+            <label><input type="radio" name="gender" value="男性" checked />男性</label>
+            <label><input type="radio" name="gender" value="女性" />女性</label>
+          </td>
         </tr>
         <tr>
           <th scope="row">ユーザ名</th>
           <td>
             <input type="email" name="userName" placeholder="myaccount@abc.com" maxlength="32" />
-            <button id="checkUserName">重複確認</button>
+            <button id="checkUserName" class="btn btn-primary">重複確認</button>
             <span id="checkOK" class="hidden">OK</span>
           </td>
         </tr>
@@ -54,10 +57,6 @@
       </div>
       <!-- コミット確認 -->
     </div>
-
-
-    <!-- Modal Dialog (入力内容確認) -->
-    <div th:insert="fragments/dialog_input_destination_confirm::dialog-input-destination-confirm"></div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
 
