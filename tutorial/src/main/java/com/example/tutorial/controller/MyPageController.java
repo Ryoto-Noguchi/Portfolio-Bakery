@@ -26,6 +26,7 @@ public class MyPageController {
   public String goMyPage(Model model) {
     User user = userService.findUser(loginSession.getUserName(), loginSession.getPassword());
     model.addAttribute("user", user);
+    model.addAttribute("loginSession", loginSession);
     return "my_page";
   }
 }

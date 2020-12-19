@@ -43,6 +43,7 @@ public class DestinationContrller {
   public int insertDestination(@RequestBody Destination destination) {
     destination.setUserId(loginSession.getUserId());
     int result = destinationService.insertDestination(destination);
+    System.out.println(result + "件の宛先を登録しました");
     return result;
 
   }

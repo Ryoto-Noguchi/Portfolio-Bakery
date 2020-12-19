@@ -43,8 +43,9 @@
         </tr>
       </table>
       <div class="btn-area">
-        <button type="button" id="open-confirm" class="btn btn-success m-2">確認</button>
+        <a type="button" id="back-btn" class="btn btn-primary m-2" href="javascript:history.back();">戻る</a>
         <button type="button" id="clear-btn" class="btn btn-warning m-2">クリア</button>
+        <button type="button" id="open-confirm" class="btn btn-success m-2">確認</button>
       </div>
     </div>
     <!-- Modal Dialog (入力内容確認) -->
@@ -126,7 +127,27 @@
           },
           callback: function (result) {
             if (result) {
-              console.log('YES');
+              let jsonString = {
+                'familyName': $('#familyName').val(), // jsonの値として使用するには.val()をElementbについないとjson parseエラーになる
+                'firstName': $('#firstName').val(),
+                'address': $('#address').val(),
+                'telNumber': $('#telNumber').val()
+              };
+              $.ajax({
+                type: 'POST',
+                url: '/tutorial/destination/register',
+                data: JSON.stringify(jsonString),
+                contentType: 'application/json',
+                dataType: 'json',
+              }).done(function (data) {
+                bootbox.alert('新規宛先を登録しました', function () {
+                  location.href = '/tutorial/purchase/';
+                });
+              }).fail(function (data) {
+                alert('ajax通信に失敗しました');
+              }).always(function (data) {
+                console.log('ajax通信しました');
+              });
             } else {
               console.log('NO');
             }
