@@ -50,8 +50,14 @@ tr td {
   vertical-align: middle !important;
 }
 
+.btn-warning {
+  color: gray !important;
+}
+
 input {
   text-align: center;
+  border-radius: 0.25rem;
+  border: solid 1px lightgray;
 }
 
 a:hover {
@@ -74,4 +80,43 @@ a:hover {
 
 .modal-footer {
   border-top: none;
+}
+
+.ui-dialog-buttonset .btn {
+  border-radius: 0.25rem;
+  border: none;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  background-image: none;
+}
+
+.ui-dialog-buttonset.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.ui-dialog-buttonset.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.ui-dialog-buttonset.btn-success {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.ui-dialog-buttonset.btn-danger {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.ui-dialog-buttonset.btn-info {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.ui-dialog-buttonset .btn .btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #ffffff;
 }

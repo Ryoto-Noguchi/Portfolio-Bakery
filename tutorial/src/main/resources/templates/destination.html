@@ -59,6 +59,13 @@
         $('table').find('input').val(""); // tableタグ内の全てのinputの値を空にする
       });
 
+      // $('#dialog').button({
+      //   classes: {
+      //     "ui-button": "btn btn-success",
+      //     "ui-button-icon": "glyphicon"
+      //   }
+      // });
+
       $('#dialog').dialog({
         autoOpen: false,
         modal: true,
@@ -67,6 +74,7 @@
         buttons: [
           {
             text: '登録する',
+            "class": "btn btn-success",
             click: function () {
               let jsonString = {
                 'familyName': $('#familyName'),
@@ -93,6 +101,7 @@
           },
           {
             text: '戻って修正する',
+            "class":"btn btn-secondary",
             click: function () {
               $(this).dialog('close');
             }
@@ -108,52 +117,54 @@
       });
 
       $('#open-confirm').click(function () {
-        // $('#dialog').dialog('open');
-        bootbox.confirm({
-          title: "入力内容確認",
-          backdrop: true,
-          centerVertical: true,
-          message: "登録内容はこちらで間違い無いですか？",
-          locale: 'ja',
-          buttons: {
-            confirm: {
-              label: '<i class="fa fa-check"></i> 登録',
-              className: 'btn-success'
-            },
-            cancel: {
-              label: '<i class="fa fa-times"></i> 戻って修正',
-              className: 'btn-warning'
-            }
-          },
-          callback: function (result) {
-            if (result) {
-              let jsonString = {
-                'familyName': $('#familyName').val(), // jsonの値として使用するには.val()をElementbについないとjson parseエラーになる
-                'firstName': $('#firstName').val(),
-                'address': $('#address').val(),
-                'telNumber': $('#telNumber').val()
-              };
-              $.ajax({
-                type: 'POST',
-                url: '/tutorial/destination/register',
-                data: JSON.stringify(jsonString),
-                contentType: 'application/json',
-                dataType: 'json',
-              }).done(function (data) {
-                bootbox.alert('新規宛先を登録しました', function () {
-                  location.href = '/tutorial/purchase/';
-                });
-              }).fail(function (data) {
-                alert('ajax通信に失敗しました');
-              }).always(function (data) {
-                console.log('ajax通信しました');
-              });
-            } else {
-              console.log('NO');
-            }
-          }
-        });
+        $('#dialog').dialog('open');
+        //   bootbox.confirm({
+        //     title: "入力内容確認",
+        //     backdrop: true,
+        //     centerVertical: true,
+        //     message: "登録内容はこちらで間違い無いですか？",
+        //     locale: 'ja',
+        //     buttons: {
+        //       confirm: {
+        //         label: '<i class="fa fa-check"></i> 登録',
+        //         className: 'btn-success'
+        //       },
+        //       cancel: {
+        //         label: '<i class="fa fa-times"></i> 戻って修正',
+        //         className: 'btn-warning'
+        //       }
+        //     },
+        //     callback: function (result) {
+        //       if (result) {
+        //         let jsonString = {
+        //           'familyName': $('#familyName').val(), // jsonの値として使用するには.val()をElementbについないとjson parseエラーになる
+        //           'firstName': $('#firstName').val(),
+        //           'address': $('#address').val(),
+        //           'telNumber': $('#telNumber').val()
+        //         };
+        //         $.ajax({
+        //           type: 'POST',
+        //           url: '/tutorial/destination/register',
+        //           data: JSON.stringify(jsonString),
+        //           contentType: 'application/json',
+        //           dataType: 'json',
+        //         }).done(function (data) {
+        //           bootbox.alert('新規宛先を登録しました', function () {
+        //             location.href = '/tutorial/purchase/';
+        //           });
+        //         }).fail(function (data) {
+        //           alert('ajax通信に失敗しました');
+        //         }).always(function (data) {
+        //           console.log('ajax通信しました');
+        //         });
+        //       } else {
+        //         console.log('NO');
+        //       }
+        //     }
+        //   });
       });
+
+      $(".button-color button").button();
     });
   </script>
 </body>

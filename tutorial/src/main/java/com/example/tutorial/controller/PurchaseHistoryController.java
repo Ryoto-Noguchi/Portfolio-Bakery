@@ -29,7 +29,6 @@ public class PurchaseHistoryController {
   public String goHistoryPage(Model model) {
     int userId = loginSession.getUserId();
     List<PurchaseHistoryDto> histories = historyService.findHistories(userId); // 購入履歴テーブルの全レコードをとってくる
-
     model.addAttribute("histories", histories);
     model.addAttribute("loginSession", loginSession);
     return "purchase_history";

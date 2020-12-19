@@ -7,7 +7,7 @@
 <body>
 
 <th:block th:fragment="dialog-input-destination-confirm">
-	<div id="dialog" title="入力内容確認" class="hidden">
+	<div id="dialog" title="入力内容確認" class="">
 		<table class="table table-bordered table-hover table-responsive-md text-center">
 			<tr>
 				<th scope="row">宛先氏名</th>
@@ -33,6 +33,9 @@
 </th:block>
 
 <script>
+	$(function() {
+		$('button').removeClass('ui-button');
+	})
 </script>
 
 </body>

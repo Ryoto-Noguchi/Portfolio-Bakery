@@ -14,8 +14,9 @@
     <!-- ↓CSSの読み込み -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <!-- ↓jQueryUIのCSS読み込み -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> -->
+    <link rel="stylesheet" href="/css/custom-theme/jquery-ui-1.10.0.custom.css">
+    <!-- ↓fontawsome読み込み -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- ↓jQueryの読み込み -->
     <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -129,7 +130,7 @@
     <nav class="">
       <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
         <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage/}"
-            th:class="${loginSession != null ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
+            th:class="${loginSession.isLogined() == true ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
         <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart/}"
             class="nav-link btn color-white btn-primary p-2 mr-3">カート</a>
         </li>
