@@ -53,8 +53,7 @@ public class PurchaseController {
   @PostMapping("/settle")
   @ResponseBody
   public int settle(@RequestBody String destinationId) {
-    // Integer.parseInt(destinationId);
-    int result = historyService.insert(Integer.parseInt(destinationId), (int)loginSession.getUserId()); // destinationIdとuserIdに一致する(論理削除されていない)カートをtbl_purcase_tableに追加
+    int result = historyService.insert(Integer.parseInt(destinationId), (int)loginSession.getUserId()); // destinationIdとuserIdに一致する(論理削除されていない)カートをtbl_purchase_hisotryに追加
     cartService.deleteCartByUserId(loginSession.getUserId()); // ログインしているユーザのカートを空にする
     return result;
   }

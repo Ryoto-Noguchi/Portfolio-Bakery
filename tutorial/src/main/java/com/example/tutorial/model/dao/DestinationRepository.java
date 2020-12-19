@@ -22,4 +22,7 @@ public interface DestinationRepository extends JpaRepository<Destination, Intege
 	@Query(value = "INSERT INTO mst_destination (user_id, family_name, first_name, address, tel_number) VALUES (:#{#destination.userId}, :#{#destination.familyName}, :#{#destination.firstName}, :#{#destination.address}, :#{#destination.telNumber})", nativeQuery = true)
 	int insert(Destination destination);
 
+	@Query(value = "SELECT address FROM mst_destination WHERE id = :destinationId", nativeQuery = true)
+	String findAddressById(int destinationId);
+
 }

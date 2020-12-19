@@ -66,4 +66,8 @@ public class ProductService {
     return product;
   }
 
+public String findProductNameByProductId(int productId) {
+	return productRepos.findProductNameById(productId);
+}
+
 }

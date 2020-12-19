@@ -30,4 +30,8 @@ public class DestinationService {
 		return destinationRepos.insert(destination);
 	}
 
+	public String findAddressByDestinationId(int destinationId) {
+		return destinationRepos.findAddressById(destinationId);
+	}
+
 }

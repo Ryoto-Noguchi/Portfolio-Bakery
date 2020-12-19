@@ -135,4 +135,8 @@ INSERT INTO tbl_purchase_history  (user_id, product_id, product_count, price, de
   AND destination.id = 1
   AND cart.delete_flag = false;
 
-  INSERT INTO tbl_purchase_history (user_id, product_id, product_count, price, destination_id) VALUES ()
+SELECT history.purchased_at, product.product_name, history.price, history.product_count, dest.family_name, dest.first_name, dest.address FROM tbl_purchase_history AS history
+INNER JOIN mst_product AS product ON history.product_id = product.id
+INNER JOIN mst_destination AS dest ON history.destination_id = dest.id
+WHERE history.user_id = 1 AND history.delete_flag = false
+ORDER BY history.purchased_at;
