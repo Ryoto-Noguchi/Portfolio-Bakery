@@ -1,5 +1,7 @@
 package com.example.tutorial.service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,29 +43,33 @@ public class PurchaseHistoryService {
     return result;
   }
 
+  /**
+   * 購入履歴テーブルにない商品名とアドレス情報を結合してhistoryDtoとしてControllerに返すメソッド
+   * @param userId
+   * @return 画面に表示するために必要な購入履歴情報
+   */
   public List<PurchaseHistoryDto> findHistories(int userId) {
 
+    // 論理削除されていない購入履歴を取得してくる
     List<PurchaseHistory> purchaseHistories = historyRepos.findByUserIdAndDeleteFlagFalse(userId);
+
     List<PurchaseHistoryDto> historyList = new ArrayList<PurchaseHistoryDto>();
     for (int i = 0; i < purchaseHistories.size(); i++) {
-        PurchaseHistoryDto historyDto = new PurchaseHistoryDto();
-        historyDto.setPurchasedAt(purchaseHistories.get(i).getPurchasedAt().toString());
-        historyDto.setProductName(productService.findProductNameByProductId(purchaseHistories.get(i).getProductId()));
-        historyDto.setPrice(purchaseHistories.get(i).getPrice());
-        historyDto.setProductCount(purchaseHistories.get(i).getProductCount());
-        historyDto.setFamilyName(purchaseHistories.get(i).getUser().getFamilyName());
-        historyDto.setFirstName(purchaseHistories.get(i).getUser().getFirstName());
-        historyDto.setAddress(destinationRepos.findAddressById(purchaseHistories.get(i).getDestinationId()));
-      // for (PurchaseHistory purchaseHistory : purchaseHistories) {
-      //   PurchaseHistoryDto historyDto = new PurchaseHistoryDto();
-      //   historyDto.setPurchasedAt(purchaseHistory.getPurchasedAt().toString());
-      //   historyDto.setProductName(productService.findProductNameByProductId(purchaseHistory.getProductId()));
-      //   historyDto.setPrice(purchaseHistory.getPrice());
-      //   historyDto.setProductCount(purchaseHistory.getProductCount());
-      //   historyDto.setFamilyName(purchaseHistory.getUser().getFamilyName());
-      //   historyDto.setFirstName(purchaseHistory.getUser().getFirstName());
-      //   historyList.add(i, historyDto);
-      // }
+
+      // Timestamp型をString型でyyyy/mm/ddの形に整形
+      Timestamp purchased_at = purchaseHistories.get(i).getPurchasedAt();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+      String purchasedAt = sdf.format(purchased_at);
+
+      // newしたPurchaseHistoryDtoインスタンスに必要な項目を1つずつ入れていく。
+      PurchaseHistoryDto historyDto = new PurchaseHistoryDto();
+      historyDto.setPurchasedAt(purchasedAt);
+      historyDto.setProductName(productService.findProductNameByProductId(purchaseHistories.get(i).getProductId()));
+      historyDto.setPrice(purchaseHistories.get(i).getPrice());
+      historyDto.setProductCount(purchaseHistories.get(i).getProductCount());
+      historyDto.setFamilyName(purchaseHistories.get(i).getUser().getFamilyName());
+      historyDto.setFirstName(purchaseHistories.get(i).getUser().getFirstName());
+      historyDto.setAddress(destinationRepos.findAddressById(purchaseHistories.get(i).getDestinationId()));
       historyList.add(historyDto);
     }
     return historyList;
