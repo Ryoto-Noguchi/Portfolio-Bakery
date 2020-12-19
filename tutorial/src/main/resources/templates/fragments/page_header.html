@@ -121,9 +121,9 @@
         <!-- ↓ログイン情報の有無で、display:noneのhiddenクラスを付与 -->
         <!-- ↓th:classをつけてしまうとclassが適応されなくなる -->
         <button id="login" type="button"
-          th:class="${loginSession.isLogined() == false ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログイン</button>
+          th:class="${loginSession.isLogined() == false ? 'btn btn-success my-2 my-sm-0' : 'hidden'}">ログイン</button>
         <button id="logout" type="button"
-          th:class="${loginSession.isLogined() == true ? 'btn btn-outline-success my-2 my-sm-0' : 'hidden'}">ログアウト</button>
+          th:class="${loginSession.isLogined() == true ? 'btn btn-secondary my-2 my-sm-0' : 'hidden'}">ログアウト</button>
       </form>
     </nav>
     <nav class="">

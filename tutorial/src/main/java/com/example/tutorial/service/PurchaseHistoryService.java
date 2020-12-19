@@ -63,6 +63,7 @@ public class PurchaseHistoryService {
 
       // newしたPurchaseHistoryDtoインスタンスに必要な項目を1つずつ入れていく。
       PurchaseHistoryDto historyDto = new PurchaseHistoryDto();
+      historyDto.setPurchaseHistoryId(purchaseHistories.get(i).getId());
       historyDto.setPurchasedAt(purchasedAt);
       historyDto.setProductName(productService.findProductNameByProductId(purchaseHistories.get(i).getProductId()));
       historyDto.setPrice(purchaseHistories.get(i).getPrice());
@@ -74,5 +75,9 @@ public class PurchaseHistoryService {
     }
     return historyList;
   }
+
+public int deleteHistory(int id) {
+	return historyRepos.logicalDeleteById(id);
+}
 
 }

@@ -89,9 +89,11 @@
           dataType: 'json',
           contentType: 'application/json'
         }).done(function(data) {
-          alert(`${data}件の決済が完了しました`)
+          bootbox.alert(`${data}件の決済が完了しました`, function () {
+            location.href = '/tutorial/history'
+          })
         }).fail(function(data) {
-          alert("ajax通信に失敗しました");
+          bootbox.alert("ajax通信に失敗しました");
         }).always(function(data) {
           console.log("ajax通信しました");
         });

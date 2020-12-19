@@ -100,7 +100,29 @@
         dataType: 'json'
       }).done(function addReport(data) {
         let product = data;
-        alert(`カートに${product['product']['productName']}を${product['productCount']}個追加しました`);
+        bootbox.confirm({
+          title: `カートに${product['product']['productName']}を${product['productCount']}個追加しました`,
+          locale: 'ja',
+          backdrop: true,
+          centerVertical: true,
+          message: 'カートへ移動しますか？',
+          buttons: {
+            confirm: {
+              label: 'はい',
+              className: 'btn-success'
+            },
+            cancel: {
+              label: 'いいえ',
+              className: 'btn-secondary'
+            }
+          },
+          callback: function (result) {
+            if (result) {
+              location.href = '/tutorial/cart/'
+            }
+          }
+        });
+        // (`カートに${product['product']['productName']}を${product['productCount']}個追加しました`);
       }).fail(function failedReport(data) {
         alert('ajax通信に失敗しました');
       }).always(function report(data) {

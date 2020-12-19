@@ -67,7 +67,7 @@ public class CartController {
     }
     return result;
     /*
-    ⇩のようにしてMapを使って処理することを可能。その場合はcat.htmlのajaxの条件定義で「data: JSON.stringify({ 'checkedIdList': checkedIdList })」のようにして、keyとvalueを指定しないとダメ
+    ⇩のようにしてMapを使って処理することも可能。その場合はcat.htmlのajaxの条件定義で「data: JSON.stringify({ 'checkedIdList': checkedIdList })」のようにして、keyとvalueを指定しないとダメ
       Map<String, List<String>> map = gson.fromJson(checkedIdList, Map.class);
       List<String> checkedIds = map.get("checkedIdList");
       for (String id : checkedIds) {

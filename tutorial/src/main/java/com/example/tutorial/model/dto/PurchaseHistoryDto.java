@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class PurchaseHistoryDto {
+	private Integer purchaseHistoryId;
   private String purchasedAt;
 	private String productName;
 	private int price;

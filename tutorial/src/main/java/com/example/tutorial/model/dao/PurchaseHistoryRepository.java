@@ -2,7 +2,6 @@ package com.example.tutorial.model.dao;
 
 import java.util.List;
 
-
 // import java.util.List;
 
 import com.example.tutorial.model.entity.Cart;
@@ -22,5 +21,9 @@ public interface PurchaseHistoryRepository extends JpaRepository<PurchaseHistory
   int insert(@Param("cart") Cart cart, @Param("destinationId") int destinationId); // エンティティのフィールドの中でオブジェクト(この例ではcartインスタンス)のものがあった場合に:#{#cart.product.price}のように「.」で繋げることでパラメーターを設定できる
 
   List<PurchaseHistory> findByUserIdAndDeleteFlagFalse(int userId);
+
+  @Modifying
+	@Query(value = "UPDATE tbl_purchase_history SET delete_flag = TRUE WHERE id = :id", nativeQuery = true)
+  int logicalDeleteById(int id);
 
 }

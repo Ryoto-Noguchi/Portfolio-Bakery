@@ -14,6 +14,11 @@
       <table class="table table-hover table-responsive-md table-bordered text-center">
         <thead class="thead-light">
           <tr>
+            <th scope="col">
+              <label>全選択
+                <input class="ml-2" type="checkbox" name="allChecked" id="checkbox-all">
+              </label>
+            </th>
             <th scope="col">購入日時</th>
             <th scope="col">商品名</th>
             <th scope="col">価格(円)</th>
@@ -22,8 +27,12 @@
             <th scope="col">宛先住所</th>
           </tr>
         </thead>
-        <tbody>
-          <tr th:each="history : ${histories}" th:object="${history}">
+        <tbody id="boxes">
+          <tr th:each="history, stat : ${histories}" th:object="${history}">
+            <td>
+              <input type="checkbox" class="checkbox" th:id="'chechbox' + ${stat.count}" name="purchaseHistoryId"
+                th:value="*{purchaseHistoryId}">
+            </td>
             <td th:text="*{purchasedAt}"></td>
             <td th:text="*{productName}"></td>
             <td th:text="*{price}"></td>
@@ -35,12 +44,81 @@
       </table>
       <div class="btn-area">
         <a type="button" id="back-btn" class="btn btn-primary m-3" href="javascript:history.back();">戻る</a>
-        <button id="delete-btn" class="btn btn-warning">削除</button>
+        <button id="delete-btn" class="btn btn-warning" disabled>削除</button>
       </div>
     </div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
+  <script th:inline="javascript">
+    $(function () {
 
+      $(document).on('change', '.checkbox', function () { // javascriptを使ってhtml要素を変更した後のものには.change()やonChangeは使えないため、このようにdocumentを先頭につける必要がある
+        changeDisabled();
+      });
+
+      // 削除ボタンが押された時の処理
+      $('#delete-btn').on('click', function () {
+        let checkedList = $('.checkbox:checked'); // チェックボックスにチェックの入ったものを取得
+        let checkedIdList = [];
+        for (checked of checkedList) {
+          checkedIdList.push($(checked).val()); // ☑️のついたレコードのvalueとして設定されているpurchaseHistoryIdを空の配列に入れる
+        }
+        console.log(checkedIdList);
+        deleteHistory(checkedList, checkedIdList); // 削除メソッドを呼び出す
+      });
+
+      // 購入履歴削除メソッド
+      function deleteHistory(checkedList, checkedIdList) {
+        $.ajax({
+          type: 'POST',
+          url: '/tutorial/history/delete',
+          data: JSON.stringify(checkedIdList),
+          dataType: 'json',
+          contentType: 'application/json'
+        }).done(function (data) {
+          for (checked of checkedList) {
+            $(checked).parent().parent().remove(); // ☑️のついたレコード全体を削除
+          }
+          let checkList = $('.checkList'); // ☑️のついたレコードを削除した後、☑️が全て無くなればそのまま購入履歴ページを更新
+          bootbox.alert(`購入履歴✖️${data}削除しました`);
+          console.log(`${data}レコード削除しました`);
+          changeDisabled(); // 削除ボタンを非活性化
+        }).fail(function (data) {
+          bootbox.alert("ajax通信に失敗しました");
+        }).always(function name(params) {
+          console.log("ajax通信しました");
+        });
+      };
+
+      // 全選択チェックボックスのつけ外し
+      $('#checkbox-all').on('click', function () {
+        $('.checkbox').prop('checked', this.checked); // this.checkedで全選択チェックボックスの状態と各チェックボックスの状態を同じにする
+        changeDisabled();
+      });
+      $('.checkbox').on('click', function () {
+        if ($('#boxes:checked').length == $('.checkbox').length) {
+          $('#checkbox-all').prop('checked', true);
+        } else {
+          $('#checkbox-all').prop('checked', false);
+        }
+      });
+
+      // 削除ボタンの活性/非活性化の処理
+      function changeDisabled() {
+        let checkList = $('.checkbox');
+        let disabled = true;
+        for (let check of checkList) {
+          if ($(check).prop('checked')) { // もし☑️がついていればfalseを、ついていなければtrueを削除ボタンの属性につける
+            disabled = false;
+            break;
+          }
+        }
+        console.log(disabled);
+        $('#delete-btn').prop('disabled', disabled);
+      }
+
+    });
+  </script>
 </body>
 
 </html>
