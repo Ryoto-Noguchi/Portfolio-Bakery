@@ -35,9 +35,9 @@ public class UserController {
   @PostMapping("/check")
   @ResponseBody
   public boolean checkUserName(@RequestBody String newUserName) {
-    String str = newUserName;
+    // String str = newUserName;
     boolean bool = false;
-    int count = userService.findByUserName(str);
+    int count = userService.findByUserName(newUserName);
     if (count > 0) { // 同一のユーザ名が既に存在していたらtrueを返してエラーを表示
       bool = true;
     } else {

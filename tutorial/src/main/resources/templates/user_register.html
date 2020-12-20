@@ -53,7 +53,7 @@
       </table>
       <div class="btn-area">
         <a type="button" id="back-btn" class="btn btn-primary m-3" href="javascript:history.back();">戻る</a>
-        <button id="confirm-btn" class="btn btn-success">確認する</button>
+        <button id="confirm-btn" class="btn btn-success" disabled>確認する</button>
       </div>
       <!-- コミット確認 -->
     </div>
@@ -63,7 +63,7 @@
   <script type="text/javascript">
     $(function () {
       $('#checkUserName').on('click', function () {
-        let userName = $('#newUserName').val();
+        let userName = $('#newUserName').val(); // Java側でFormを使って受け取る必要のない時は、JSON.stringifyせずにそのままそのまま取得した値をパラメーターとして渡して、java側でも普通に受け取ってしまえばいい
         $.ajax({
           type: 'POST',
           url: '/portfolio/user/check',
@@ -75,6 +75,7 @@
             bootbox.alert('入力されたユーザ名は既に使用されています。別のユーザ名をお試しください');
           } else {
             bootbox.alert('入力されたユーザ名は使用できます');
+            $('#confirm-btn').prop('disabled', false);
           }
         }).fail(function (boolean) {
           console.log('ajax通信に失敗しました');
