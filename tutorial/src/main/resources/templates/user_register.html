@@ -18,15 +18,15 @@
         <tr>
           <th scope="row">氏名</th>
           <td>
-            <input type="text" name="familyName" placeholder="山田" maxlength="16" />
-            <input type="text" name="firstName" placeholder="太郎" maxlength="16" />
+            <input type="text" id="newFamilyName" name="familyName" placeholder="山田" maxlength="16" />
+            <input type="text" id="newFirstName" name="firstName" placeholder="太郎" maxlength="16" />
           </td>
         </tr>
         <tr>
           <th scope="row">ふりがな</th>
           <td>
-            <input type="text" name="familyNameKana" placeholder="やまだ" maxlength="16" />
-            <input type="text" name="firstNameKana" placeholder="たろう" maxlength="16" />
+            <input type="text" id="newfamilyNameKana" name="familyNameKana" placeholder="やまだ" maxlength="16" />
+            <input type="text" id="newFirstNameKana" name="firstNameKana" placeholder="たろう" maxlength="16" />
           </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
         <tr>
           <th scope="row">パスワード</th>
           <td>
-            <input type="password" name="password" placeholder="パスワード" maxlength="16" />
+            <input type="password" id="newPassword" name="password" placeholder="パスワード" maxlength="16" />
           </td>
         </tr>
       </table>
@@ -55,8 +55,9 @@
         <a type="button" id="back-btn" class="btn btn-primary m-3" href="javascript:history.back();">戻る</a>
         <button id="confirm-btn" class="btn btn-success" disabled>確認する</button>
       </div>
-      <!-- コミット確認 -->
     </div>
+    <!-- Modal Dialog (入力内容確認) -->
+    <div th:insert="fragments/dialog_input_user_confirm::dialog-input-user-confirm"></div>
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
 
@@ -82,6 +83,45 @@
         }).always(function (boolean) {
           console.log('ajax通信をしました');
         });
+      });
+
+      $('#dialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 800,
+        minWidth: 600,
+        buttons: [
+          {
+            text: '登録する',
+            "class": "btn btn-success",
+            click: function () {
+              // let jsonString = {
+
+              // }
+              console.log("hello");
+            }
+          },
+          {
+            text: '戻って修正する',
+            "class": "btn btn-secondary",
+            click: function () {
+              $(this).dialog('close');
+            }
+          }
+        ],
+        open: function () {
+          $('#familyNameConfirm').text($('#newFamilyName').val());
+          $('#firstNameConfirm').text($('#newFirstName').val());
+          $('#familyNameKanaConfirm').text($('#newFamilyNameKana').val());
+          $('#firstNameKanaConfirm').text($('#newFirstNameKana').val());
+          $('#gender').text($('input[name=gender]:checked').val());
+          $('#userNameConfirm').text($('#newUserName').val());
+          $('#passwordConfirm').text($('#newPassword').val());
+        }
+      });
+
+      $('#confirm-btn').on('click', function () {
+        $('#dialog').dialog('open');
       });
     });
   </script>

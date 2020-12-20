@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Portfolio Bakery</title>
+</head>
+<body>
+
+<th:block th:fragment="dialog-input-user-confirm">
+	<div id="dialog" title="入力内容確認" class="">
+		<table class="table table-hover table-responsve-md table-bordered text-center">
+			<tr>
+				<th scope="row">氏名</th>
+				<td>
+					<span id="familyNameConfirm"></span>
+					<span id="firstNameConfirm"></span>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">氏名ふりがな</th>
+				<td>
+					<span id="familyNameKanaConfirm"></span>
+					<span id="firstNameKanaConfirm"></span>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">性別</th>
+				<td>
+					<span id="gender"></span>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">ユーザー名</th>
+				<td>
+					<span id="userNameConfirm"></span>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">パスワード</th>
+				<td>
+					<span id="passwordConfirm"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</th:block>
+</body>
+</html>
