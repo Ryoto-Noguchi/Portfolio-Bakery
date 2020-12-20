@@ -1,8 +1,8 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
-import com.example.tutorial.model.entity.User;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.UserService;
+import com.example.portfolio.model.entity.User;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/tutorial/mypage")
+@RequestMapping("/portfolio/mypage")
 public class MyPageController {
 
 
@@ -22,7 +22,7 @@ public class MyPageController {
   @Autowired
   private LoginSession loginSession;
 
-  @GetMapping("/")
+  @GetMapping("")
   public String goMyPage(Model model) {
     User user = userService.findUser(loginSession.getUserName(), loginSession.getPassword());
     model.addAttribute("user", user);

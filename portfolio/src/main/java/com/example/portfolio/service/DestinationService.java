@@ -1,11 +1,11 @@
-package com.example.tutorial.service;
+package com.example.portfolio.service;
 
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.example.tutorial.model.dao.DestinationRepository;
-import com.example.tutorial.model.entity.Destination;
+import com.example.portfolio.model.dao.DestinationRepository;
+import com.example.portfolio.model.entity.Destination;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

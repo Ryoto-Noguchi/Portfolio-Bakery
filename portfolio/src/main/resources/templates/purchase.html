@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
       <div class="btn-area d-flex justify-content-center text-center align-items-center">
         <a type="button" id="back-btn" class="btn btn-primary m-3" href="javascript:history.back();">戻る</a>
         <button type="button" id="delete-btn" class="btn btn-warning mr-3" th:if="${destinations.size() > 0}">削除</button>
-        <form name="destinationForm" th:action="@{/tutorial/destination/}" class="d-inline mr-3">
+        <form name="destinationForm" th:action="@{/portfolio/destination}" class="d-inline mr-3">
           <button id="destination-register-btn" class="btn btn-info" type="submit">新規宛先登録</button>
         </form>
         <button type="button" id="settlement-button" class="btn btn-success mr-3">決済</button>
@@ -66,14 +66,14 @@
       function deleteDestination(checked, destinationId) {
         $.ajax({
           type:'POST',
-          url: '/tutorial/purchase/delete',
+          url: '/portfolio/purchase/delete',
           data: destinationId,
           dataType: 'json',
           contentType: 'application/json'
         }).done(function(data) {
           $(checked).parent().parent().remove();
           alert(`${data}件の宛先を削除しました`);
-          location.replace('/tutorial/purchase/');
+          location.replace('/portfolio/purchase/');
         }).fail(function(){
           alert("ajax通信に失敗しました");
         }).always(function(){
@@ -84,13 +84,13 @@
       function settlePayament(destinationId) {
         $.ajax({
           type:'POST',
-          url: '/tutorial/purchase/settle',
+          url: '/portfolio/purchase/settle',
           data: destinationId,
           dataType: 'json',
           contentType: 'application/json'
         }).done(function(data) {
           bootbox.alert(`${data}件の決済が完了しました`, function () {
-            location.href = '/tutorial/history'
+            location.href = '/portfolio/history'
           })
         }).fail(function(data) {
           bootbox.alert("ajax通信に失敗しました");

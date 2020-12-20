@@ -1,16 +1,16 @@
-package com.example.tutorial.service;
+package com.example.portfolio.service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.tutorial.model.dao.CartRepository;
-import com.example.tutorial.model.dao.DestinationRepository;
-import com.example.tutorial.model.dao.PurchaseHistoryRepository;
-import com.example.tutorial.model.dto.PurchaseHistoryDto;
-import com.example.tutorial.model.entity.Cart;
-import com.example.tutorial.model.entity.PurchaseHistory;
+import com.example.portfolio.model.dao.CartRepository;
+import com.example.portfolio.model.dao.DestinationRepository;
+import com.example.portfolio.model.dao.PurchaseHistoryRepository;
+import com.example.portfolio.model.dto.PurchaseHistoryDto;
+import com.example.portfolio.model.entity.Cart;
+import com.example.portfolio.model.entity.PurchaseHistory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

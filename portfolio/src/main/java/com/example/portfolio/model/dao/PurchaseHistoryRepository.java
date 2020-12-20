@@ -1,11 +1,9 @@
-package com.example.tutorial.model.dao;
+package com.example.portfolio.model.dao;
 
 import java.util.List;
 
-// import java.util.List;
-
-import com.example.tutorial.model.entity.Cart;
-import com.example.tutorial.model.entity.PurchaseHistory;
+import com.example.portfolio.model.entity.Cart;
+import com.example.portfolio.model.entity.PurchaseHistory;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

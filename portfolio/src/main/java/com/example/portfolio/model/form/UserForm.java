@@ -1,4 +1,4 @@
-package com.example.tutorial.model.form;
+package com.example.portfolio.model.form;
 
 import java.io.Serializable;
 

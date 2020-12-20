@@ -1,12 +1,12 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
 import java.util.Optional;
 
-import com.example.tutorial.model.dao.UserRepository;
-import com.example.tutorial.model.entity.Destination;
-import com.example.tutorial.model.entity.User;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.DestinationService;
+import com.example.portfolio.model.dao.UserRepository;
+import com.example.portfolio.model.entity.Destination;
+import com.example.portfolio.model.entity.User;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.DestinationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/tutorial/destination")
+@RequestMapping("/portfolio/destination")
 public class DestinationContrller {
 
   @Autowired
@@ -30,7 +30,7 @@ public class DestinationContrller {
   @Autowired
   UserRepository userRepos;
 
-  @GetMapping("/")
+  @GetMapping("")
   public String goDestinationRegisterPage(Model model) {
     Optional<User> user = userRepos.findById(loginSession.getUserId());
     model.addAttribute("user", user);

@@ -1,6 +1,6 @@
-package com.example.tutorial.model.dao;
+package com.example.portfolio.model.dao;
 
-import com.example.tutorial.model.entity.Product;
+import com.example.portfolio.model.entity.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

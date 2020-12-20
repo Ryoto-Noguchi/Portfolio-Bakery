@@ -1,17 +1,17 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.example.tutorial.model.entity.Category;
-import com.example.tutorial.model.entity.Product;
-import com.example.tutorial.model.form.SearchForm;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.model.session.SearchSession;
-import com.example.tutorial.service.CategoryService;
-import com.example.tutorial.service.ProductService;
+import com.example.portfolio.model.entity.Category;
+import com.example.portfolio.model.entity.Product;
+import com.example.portfolio.model.form.SearchForm;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.model.session.SearchSession;
+import com.example.portfolio.service.CategoryService;
+import com.example.portfolio.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -58,7 +58,7 @@ public class IndexController {
    * @param model
    * @return リクエストされたページの資産リスト
    */
-  @GetMapping(value = { "/", "/{page:^[1-9][0-9]*$}" })
+  @GetMapping(value = { "", "/{page:^[1-9][0-9]*$}" })
   public String index(@ModelAttribute("searchForm") SearchForm searchForm, @PathVariable(name = "page") Optional<Integer> page, Model model) {
     if (loginSession.isLogined() == false && loginSession.getTmpUserId() == null) { // ログインしてない&仮ユーザIDがない(=初めてページを開いたとき)
       int tempUserId = (int) (Math.random() * 1000000000);

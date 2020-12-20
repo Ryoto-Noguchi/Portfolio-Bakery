@@ -1,9 +1,9 @@
-package com.example.tutorial.service;
+package com.example.portfolio.service;
 
 import java.util.List;
 
-import com.example.tutorial.model.dao.CartRepository;
-import com.example.tutorial.model.entity.Cart;
+import com.example.portfolio.model.dao.CartRepository;
+import com.example.portfolio.model.entity.Cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

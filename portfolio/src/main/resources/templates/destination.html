@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -69,20 +69,20 @@
             "class": "btn btn-success",
             click: function () {
               let jsonString = {
-                'familyName': $('#familyName'),
-                'firstName': $('#firstName'),
-                'address': $('#address'),
-                'telNumber': $('telNumber')
+                'familyName': $('#familyName').val(),
+                'firstName': $('#firstName').val(),
+                'address': $('#address').val(),
+                'telNumber': $('#telNumber').val()
               };
               $.ajax({
                 type: 'POST',
-                url: 'tutorial/destination/register',
+                url: '/portfolio/destination/register',
                 data: JSON.stringify(jsonString),
                 contentType: 'application/json',
                 dataType: 'json',
               }).done(function (data) {
                 alert('新規宛先を登録しました');
-                location.href = '/tutorial/purchase';
+                location.href = '/portfolio/purchase';
               }).fail(function (data) {
                 alert('ajax通信に失敗しました');
               }).always(function (data) {
@@ -136,13 +136,13 @@
         //         };
         //         $.ajax({
         //           type: 'POST',
-        //           url: '/tutorial/destination/register',
+        //           url: '/portfolio/destination/register',
         //           data: JSON.stringify(jsonString),
         //           contentType: 'application/json',
         //           dataType: 'json',
         //         }).done(function (data) {
         //           bootbox.alert('新規宛先を登録しました', function () {
-        //             location.href = '/tutorial/purchase/';
+        //             location.href = '/portfolio/purchase';
         //           });
         //         }).fail(function (data) {
         //           alert('ajax通信に失敗しました');

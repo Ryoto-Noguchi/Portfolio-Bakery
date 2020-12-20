@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -57,7 +57,7 @@
           </div>
           <div class="btn-area">
             <button id="delete-btn" class="btn btn-warning mr-3" disabled>削除</button>
-            <form th:action="@{/tutorial/purchase/}" method="post" class="d-inline">
+            <form th:action="@{/portfolio/purchase}" method="post" class="d-inline">
               <button type="submit" name="purchaseForm" id="purchase-btn" class="btn btn-info">購入</button>
             </form>
           </div>
@@ -111,7 +111,7 @@
     function deleteCart(checkedList, checkedIdList) {
       $.ajax({
         type: 'POST',
-        url: '/tutorial/cart/delete',
+        url: '/portfolio/cart/delete',
         data: JSON.stringify(checkedIdList),
         dataType: 'json',
         contentType: 'application/json'
@@ -121,7 +121,7 @@
         }
         let checkList = $('.checkList'); // ☑️のついたレコードを削除した後、☑️が全て無くなればそのままカートページを更新
         if (checkList.length == 0) {
-          location.replace('/tutorial/cart/');
+          location.replace('/portfolio/cart/');
         }
         calcTotalAmount(); // 再度合計金額を計算して表示する
         changeDisabled(); // 削除ボタンを非活性化

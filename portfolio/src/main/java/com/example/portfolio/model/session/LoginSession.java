@@ -1,4 +1,4 @@
-package com.example.tutorial.model.session;
+package com.example.portfolio.model.session;
 
 import java.io.Serializable;
 

@@ -1,12 +1,12 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
 import java.util.List;
 
-import com.example.tutorial.model.entity.Destination;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.CartService;
-import com.example.tutorial.service.DestinationService;
-import com.example.tutorial.service.PurchaseHistoryService;
+import com.example.portfolio.model.entity.Destination;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.CartService;
+import com.example.portfolio.service.DestinationService;
+import com.example.portfolio.service.PurchaseHistoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/tutorial/purchase")
+@RequestMapping("/portfolio/purchase")
 public class PurchaseController {
 
   @Autowired
@@ -33,7 +33,7 @@ public class PurchaseController {
   @Autowired
   private PurchaseHistoryService historyService;
 
-  @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST}) // 宛先を削除した際にGETメソッドでページのリロードを行うため、POSTメソッドと両方に対応するようにする
+  @RequestMapping(value = "", method = {RequestMethod.GET, RequestMethod.POST}) // 宛先を削除した際にGETメソッドでページのリロードを行うため、POSTメソッドと両方に対応するようにする
   public String goPurchasePage(Model model, Destination destination) {
     int userId = loginSession.getUserId();
     List<Destination> destinations = destinationService.findDestination(userId);

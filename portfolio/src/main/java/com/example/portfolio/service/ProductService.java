@@ -1,12 +1,12 @@
-package com.example.tutorial.service;
+package com.example.portfolio.service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import com.example.tutorial.model.dao.ProductRepository;
-import com.example.tutorial.model.entity.Product;
-import com.example.tutorial.model.form.SearchForm;
-import com.example.tutorial.model.session.SearchSession;
+import com.example.portfolio.model.dao.ProductRepository;
+import com.example.portfolio.model.entity.Product;
+import com.example.portfolio.model.form.SearchForm;
+import com.example.portfolio.model.session.SearchSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

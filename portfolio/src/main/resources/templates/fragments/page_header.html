@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
           };
           $.ajax({
             type: 'POST',
-            url: '/tutorial/auth/login',
+            url: '/portfolio/auth/login',
             data: JSON.stringify(jsonString),
             contentType: 'application/json',
             dataType: 'json'
@@ -61,10 +61,10 @@
         });
 
         $('#logout').on('click', () => {
-          var url = '/tutorial/auth/logout';
+          var url = '/portfolio/auth/logout';
           $.ajax({
             type: 'POST',
-            url: '/tutorial/auth/logout',
+            url: '/portfolio/auth/logout',
             contentType: 'application/json',
             dataType: 'text' // ajaxで通信する際にパラメーターがない場合には、「dataType:'text'」を指定する
           }).done(function (data) {
@@ -102,11 +102,11 @@
 
     <div class="header-box">
       <h1 id="header-logo">
-        <a th:href="@{/index/refresh}">Tutorial Bakery</a>
+        <a th:href="@{/index/refresh}">Portfolio Bakery</a>
       </h1>
       <div class="header-right float-right">
         <p id="signup">
-          <a th:href="@{/portfolio/user/}">新規ユーザ登録はこちら</a>
+          <a th:href="@{/portfolio/user}">新規ユーザ登録はこちら</a>
         </p>
         <p id="welcome-message"
           th:text="'ようこそ！' + ${loginSession.isLogined() == false ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>
@@ -130,9 +130,9 @@
     </nav>
     <nav class="">
       <ul class="navbar-nav mr-auto -flex flex-row justify-content-end">
-        <li class="nav-item"><a id="mypage-btn" th:href="@{/tutorial/mypage/}"
+        <li class="nav-item"><a id="mypage-btn" th:href="@{/portfolio/mypage}"
             th:class="${loginSession.isLogined() == true ? 'nav-link btn color-white btn-info p-2 mr-2' : 'hidden'}">マイページ</a></li>
-        <li id="cart-btn" class="nav-item"><a th:href="@{/tutorial/cart/}"
+        <li id="cart-btn" class="nav-item"><a th:href="@{/portfolio/cart}"
             class="nav-link btn color-white btn-primary p-2 mr-3">カート</a>
         </li>
       </ul>

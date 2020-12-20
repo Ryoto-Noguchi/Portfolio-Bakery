@@ -1,4 +1,4 @@
-package com.example.tutorial.model.dto;
+package com.example.portfolio.model.dto;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.example.tutorial.model.entity;
+package com.example.portfolio.model.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.example.tutorial.model.form.CartForm;
+import com.example.portfolio.model.form.CartForm;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

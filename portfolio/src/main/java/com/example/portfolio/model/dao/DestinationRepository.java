@@ -1,8 +1,8 @@
-package com.example.tutorial.model.dao;
+package com.example.portfolio.model.dao;
 
 import java.util.List;
 
-import com.example.tutorial.model.entity.Destination;
+import com.example.portfolio.model.entity.Destination;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

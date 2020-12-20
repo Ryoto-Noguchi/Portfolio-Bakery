@@ -1,7 +1,7 @@
-package com.example.tutorial.service;
+package com.example.portfolio.service;
 
-import com.example.tutorial.model.dao.UserRepository;
-import com.example.tutorial.model.entity.User;
+import com.example.portfolio.model.dao.UserRepository;
+import com.example.portfolio.model.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

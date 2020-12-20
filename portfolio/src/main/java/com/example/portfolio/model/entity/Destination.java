@@ -1,4 +1,4 @@
-package com.example.tutorial.model.entity;
+package com.example.portfolio.model.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

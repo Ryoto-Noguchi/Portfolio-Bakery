@@ -1,9 +1,9 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
-import com.example.tutorial.model.entity.User;
-import com.example.tutorial.model.form.UserForm;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.UserService;
+import com.example.portfolio.model.entity.User;
+import com.example.portfolio.model.form.UserForm;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /* @RestController : View に遷移せず、メソッドの戻り値がそのままレスポンスのコンテンツになる。
 @Controllerでは@ResponseBodyを使用することで、同様の処理が可能だが、@RestControllerは@ResponseBodyを記述する必要なし。
 通常は@Controllerを使用するが、JSON や XML などを返す WebAPI 用のControllerなどには@RestControllerを使用*/
-@RequestMapping("/tutorial/auth")
+@RequestMapping("/portfolio/auth")
 @RestController
 public class AuthController {
 

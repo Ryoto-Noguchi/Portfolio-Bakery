@@ -1,6 +1,6 @@
-package com.example.tutorial.model.dao;
+package com.example.portfolio.model.dao;
 
-import com.example.tutorial.model.entity.Category;
+import com.example.portfolio.model.entity.Category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

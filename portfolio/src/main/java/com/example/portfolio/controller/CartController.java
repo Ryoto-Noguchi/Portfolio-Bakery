@@ -1,12 +1,11 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
 import java.util.List;
-// import java.util.Map;
 
-import com.example.tutorial.model.entity.Cart;
-import com.example.tutorial.model.form.CartForm;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.CartService;
+import com.example.portfolio.model.entity.Cart;
+import com.example.portfolio.model.form.CartForm;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.CartService;
 import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/tutorial/cart")
+@RequestMapping("/portfolio/cart")
 public class CartController {
 
   @Autowired
@@ -30,7 +29,7 @@ public class CartController {
 
   Gson gson = new Gson();
 
-  @GetMapping("/")
+  @GetMapping("")
   public String goCartPage(Model model, Cart cart) { // 引数にCartインスタンスを入れないとcart.htmlのth:each="cart:${cartList}"の箇所でNoBindingResultエラーが出る
     int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
     List<Cart> cartList = cartService.findCartList(userId);

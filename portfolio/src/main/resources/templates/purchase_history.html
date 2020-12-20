@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -74,7 +74,7 @@
       function deleteHistory(checkedList, checkedIdList) {
         $.ajax({
           type: 'POST',
-          url: '/tutorial/history/delete',
+          url: '/portfolio/history/delete',
           data: JSON.stringify(checkedIdList),
           dataType: 'json',
           contentType: 'application/json'

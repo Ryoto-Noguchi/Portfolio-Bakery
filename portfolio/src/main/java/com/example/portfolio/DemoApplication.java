@@ -1,4 +1,4 @@
-package com.example.tutorial;
+package com.example.portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

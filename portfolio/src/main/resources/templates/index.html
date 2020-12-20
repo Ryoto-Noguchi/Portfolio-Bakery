@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorial Bakery</title>
+  <title>Portfolio Bakery</title>
 </head>
 
 <body>
@@ -12,7 +12,7 @@
   <main>
     <div class="container d-block">
       <div class="container-fluid d-flex justify-content-center mb-3">
-        <form id="searchForm" th:action="@{/index/}" method="GET" name="searchForm" class="form-inline"
+        <form id="searchForm" th:action="@{/index}" method="GET" name="searchForm" class="form-inline"
           th:object="${searchForm}">
           <!-- カテゴリ検索窓 -->
           <label for="category-id" class="mr-2">カテゴリ</label>
@@ -94,7 +94,7 @@
       };
       $.ajax({
         type: 'POST',
-        url: '/tutorial/cart/add',
+        url: '/portfolio/cart/add',
         data: JSON.stringify(jsonString),
         contentType: 'application/json',
         dataType: 'json'
@@ -118,7 +118,7 @@
           },
           callback: function (result) {
             if (result) {
-              location.href = '/tutorial/cart/'
+              location.href = '/portfolio/cart'
             }
           }
         });

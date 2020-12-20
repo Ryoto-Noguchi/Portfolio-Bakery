@@ -1,8 +1,8 @@
-package com.example.tutorial.controller;
+package com.example.portfolio.controller;
 
-import com.example.tutorial.model.entity.User;
-import com.example.tutorial.model.session.LoginSession;
-import com.example.tutorial.service.UserService;
+import com.example.portfolio.model.entity.User;
+import com.example.portfolio.model.session.LoginSession;
+import com.example.portfolio.service.UserService;
 import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserController {
 
   Gson gson = new Gson();
 
-  @GetMapping("/")
+  @GetMapping("")
   public String goUserRegisterPage(Model model) {
     model.addAttribute("loginSession", loginSession);
     return "user_register";

@@ -1,4 +1,4 @@
-package com.example.tutorial.model.session;
+package com.example.portfolio.model.session;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
