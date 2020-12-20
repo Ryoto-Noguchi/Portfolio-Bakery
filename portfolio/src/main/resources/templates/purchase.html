@@ -89,7 +89,7 @@
           dataType: 'json',
           contentType: 'application/json'
         }).done(function(data) {
-          bootbox.alert(`${data}件の決済が完了しました`, function () {
+          bootbox.alert(`${data}件の決済が完了しました。購入履歴ページに移動します`, function () {
             location.href = '/portfolio/history'
           })
         }).fail(function(data) {

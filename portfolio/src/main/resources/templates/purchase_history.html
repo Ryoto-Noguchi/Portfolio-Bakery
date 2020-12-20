@@ -14,6 +14,9 @@
       <div class="no-data text-center" th:if="${histories.isEmpty() == true}">
         <h2 class="info">購入履歴はありません</h2>
       </div>
+      <div class="table-title text-center" th:if="${histories.size() > 0}">
+        <h2 class="info">購入履歴</h2>
+      </div>
       <table class="table table-hover table-responsive-md table-bordered text-center" th:if="${histories.size() > 0}">
         <thead class="thead-light">
           <tr>
@@ -82,10 +85,14 @@
           for (checked of checkedList) {
             $(checked).parent().parent().remove(); // ☑️のついたレコード全体を削除
           }
-          let checkList = $('.checkList'); // ☑️のついたレコードを削除した後、☑️が全て無くなればそのまま購入履歴ページを更新
-          bootbox.alert(`購入履歴✖️${data}削除しました`);
-          console.log(`${data}レコード削除しました`);
           changeDisabled(); // 削除ボタンを非活性化
+          bootbox.alert(`購入履歴✖️${data}削除しました`, function () {
+            let checkList = $('.checkbox');
+            if (checkList.length == 0) {
+              location.href = '/portfolio/history';
+            }
+          });
+          console.log(`${data}レコード削除しました`);
         }).fail(function (data) {
           bootbox.alert("ajax通信に失敗しました");
         }).always(function name(params) {
