@@ -31,8 +31,8 @@ public class UserController {
 
   @PostMapping("/check")
   @ResponseBody
-  public boolean checkUserName(@RequestBody User user) {
-    boolean result = false;
+  public boolean checkUserName(@RequestBody String newUserName) {
+    boolean result = userService.findByUserName(newUserName);
     return result;
 
   }

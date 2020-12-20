@@ -39,7 +39,7 @@
         <tr>
           <th scope="row">ユーザ名</th>
           <td>
-            <input type="email" name="userName" placeholder="myaccount@abc.com" maxlength="32" />
+            <input type="text" id="newUserName" name="userName" placeholder="taro2020abc" maxlength="32" />
             <button id="checkUserName" class="btn btn-primary">重複確認</button>
             <span id="checkOK" class="hidden">OK</span>
           </td>
@@ -60,6 +60,32 @@
   </main>
   <footer th:insert="fragments/page_footer.html::page-footer"></footer>
 
+  <script type="text/javascript">
+    $(function () {
+      $('#checkUserName').on('click', function () {
+        let jsonString = {
+          "userName": $('#newUserName').val()
+        }
+        $.ajax({
+          type: 'POST',
+          url: '/portfolio/user/check',
+          data: JSON.stringify(jsonString),
+          dataType: 'json',
+          contentType: 'application/json'
+        }).done(function (boolean) {
+          if (boolean == true) {
+            bootbox.alert('入力されたユーザ名は既に使用されています。別のユーザ名をお試しください');
+          } else {
+            bootox.alert('入力されたユーザ名は使用できます');
+          }
+        }).fail(function (boolean) {
+          console.log('ajax通信に失敗しました');
+        }).always(function (boolean) {
+          console.log('ajax通信をしました');
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
