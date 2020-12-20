@@ -94,6 +94,7 @@
         $('#mypage-btn').removeClass('hidden').addClass('nav-link btn color-white btn-info p-2 mr-2');
         $('#userName').val('');
         $('#password').val('');
+        location.href = '/index/refresh';
       }
 
 
@@ -106,7 +107,7 @@
       </h1>
       <div class="header-right float-right">
         <p id="signup">
-          <a th:href="@{/portfolio/user}">新規ユーザ登録はこちら</a>
+          <a th:href="@{/portfolio/user}" th:class="${loginSession.isLogined() == false ? '' : 'none-visible'}">新規ユーザ登録はこちら</a>
         </p>
         <p id="welcome-message"
           th:text="'ようこそ！' + ${loginSession.isLogined() == false ? 'ゲストさん' : loginSession.getUserName() + 'さん'}"></p>

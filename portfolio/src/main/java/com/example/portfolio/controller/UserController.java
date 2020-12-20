@@ -49,8 +49,11 @@ public class UserController {
   @PostMapping("/register")
   @ResponseBody
   public boolean registerUser(@RequestBody User user) {
-    boolean result = false;
-    return result;
+    boolean bool = false;
+    int result = userService.insertUser(user);
+    System.out.println(result + "件のユーザを登録しました");
+    if (result > 0) { bool = true; }
+    return bool;
   }
 
 }

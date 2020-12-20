@@ -49,7 +49,7 @@ public class IndexController {
   public String refresh() {
     searchSession.setCategoryId(null);
     searchSession.setProductName("");
-    return "redirect:/index/";
+    return "redirect:/index";
   }
 
   /**

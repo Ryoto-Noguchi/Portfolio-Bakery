@@ -22,7 +22,7 @@
       "type": "java",
       "name": "CodeLens (Launch) - DemoApplication",
       "request": "launch",
-      "mainClass": "com.example.tutorial.DemoApplication",
+      "mainClass": "com.example.portfolio.DemoApplication",
       "projectName": "demo"
     },
     {
@@ -35,8 +35,8 @@
       "type": "java",
       "name": "Debug (Launch)-DemoApplication<demo>",
       "request": "launch",
-      "mainClass": "com.example.tutorial.DemoApplication",
-      "projectName": "tutorial"
+      "mainClass": "com.example.portfolio.DemoApplication",
+      "projectName": "portfolio"
     }
   ]
 }

@@ -18,36 +18,41 @@
         <tr>
           <th scope="row">氏名</th>
           <td>
-            <input type="text" id="newFamilyName" name="familyName" placeholder="山田" maxlength="16" />
-            <input type="text" id="newFirstName" name="firstName" placeholder="太郎" maxlength="16" />
+            <input style="width: 40%;" type="text" id="newFamilyName" name="familyName" placeholder="山田" maxlength="16" required />
+            <input style="width: 40%;" type="text" id="newFirstName" name="firstName" placeholder="太郎" maxlength="16" required/>
           </td>
         </tr>
         <tr>
           <th scope="row">ふりがな</th>
           <td>
-            <input type="text" id="newfamilyNameKana" name="familyNameKana" placeholder="やまだ" maxlength="16" />
-            <input type="text" id="newFirstNameKana" name="firstNameKana" placeholder="たろう" maxlength="16" />
+            <input style="width: 40%;" type="text" id="newFamilyNameKana" name="familyNameKana" placeholder="やまだ" maxlength="16" required/>
+            <input style="width: 40%;" type="text" id="newFirstNameKana" name="firstNameKana" placeholder="たろう" maxlength="16" required/>
           </td>
         </tr>
         <tr>
           <th>性別</th>
           <td>
-            <label><input type="radio" name="gender" value="男性" checked />男性</label>
-            <label><input type="radio" name="gender" value="女性" />女性</label>
+            <label class="m-3"><input type="radio" name="gender" value="0" checked />男性</label>
+            <label><input type="radio" name="gender" value="1" />女性</label>
           </td>
         </tr>
         <tr>
           <th scope="row">ユーザ名</th>
           <td>
-            <input type="text" id="newUserName" name="userName" placeholder="taro2020abc" maxlength="32" />
+            <input style="width: 48%;" type="text" id="newUserName" name="userName" placeholder="taro2020abc" maxlength="32" required />
             <button id="checkUserName" class="btn btn-primary">重複確認</button>
-            <span id="checkOK" class="hidden">OK</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">メールアドレス</th>
+          <td>
+            <input style="width: 60%;" type="email" id="newEmail" name="email" placeholder="taro2020abc@example.com" maxlength="50" required/>
           </td>
         </tr>
         <tr>
           <th scope="row">パスワード</th>
           <td>
-            <input type="password" id="newPassword" name="password" placeholder="パスワード" maxlength="16" />
+            <input style="width: 60%;" type="password" id="newPassword" name="password" placeholder="パスワード" maxlength="16" required/>
           </td>
         </tr>
       </table>
@@ -95,10 +100,31 @@
             text: '登録する',
             "class": "btn btn-success",
             click: function () {
-              // let jsonString = {
-
-              // }
-              console.log("hello");
+              let jsonString = {
+                "familyName": $('#newFamilyName').val(),
+                "firstName": $('#newFirstName').val(),
+                "familyNameKana": $('#newFamilyNameKana').val(),
+                "firstNameKana": $('#newFirstNameKana').val(),
+                "userName": $('#newUserName').val(),
+                "mailAddress": $('#newEmail').val(),
+                "password": $('#newPassword').val(),
+                "gender": $('input[name=gender]:checked').val()
+              }
+              $.ajax({
+                type: 'POST',
+                url: '/portfolio/user/register',
+                data: JSON.stringify(jsonString),
+                dataType: 'json',
+                contentType: 'application/json'
+              }).done(function (result) {
+                bootbox.alert('新規ユーザ登録が完了しました', function () {
+                  location.href = '/index';
+                });
+              }).fail(function (result) {
+                console.log('ajax通信に失敗しました');
+              }).always(function (result) {
+                console.log('ajax通信に失敗しました');
+              })
             }
           },
           {
@@ -109,13 +135,21 @@
             }
           }
         ],
-        open: function () {
+        open: function (event, ui) {
+          let gender = "";
+          if ($('input[name=gender]:checked').val() == 0) {
+            gender = "男性"
+          } else {
+            gender = "女性"
+          }
+
           $('#familyNameConfirm').text($('#newFamilyName').val());
           $('#firstNameConfirm').text($('#newFirstName').val());
           $('#familyNameKanaConfirm').text($('#newFamilyNameKana').val());
           $('#firstNameKanaConfirm').text($('#newFirstNameKana').val());
-          $('#gender').text($('input[name=gender]:checked').val());
+          $('#gender').text(gender);
           $('#userNameConfirm').text($('#newUserName').val());
+          $('#emailConfirm').text($('#newEmail').val());
           $('#passwordConfirm').text($('#newPassword').val());
         }
       });

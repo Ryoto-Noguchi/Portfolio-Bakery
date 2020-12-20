@@ -22,4 +22,8 @@ public class UserService {
 		return userRepos.findByUserName(newUserName);
 	}
 
+	public int insertUser(User user) {
+		return userRepos.insert(user);
+	}
+
 }

@@ -1,6 +1,5 @@
-DROP DATABASE IF EXISTS tutorial;
-
-CREATE DATABASE tutorial;
+DROP DATABASE IF EXISTS bakery;
+CREATE DATABASE bakery;
 
 -- MySQLの「ON UPDATE TIMESTAMP」はPOSTGRESではこの関数を設定しておいて、
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
@@ -66,13 +65,6 @@ CREATE TABLE mst_destination (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES mst_user(id)
 );
-SELECT * FROM mst_destination;
-
-INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (1, '山田', '太郎', '080-1234-5678', '東京都千代田区紀尾井町3-6-2')
-INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (1, '山田', '太郎', '080-9472-5678', '東京都千代田区赤坂見附6-8-2')
-INSERT INTO mst_destination (user_id, family_name, first_name, tel_number, address) VALUES (3, '鈴木', '花子', '080-9876-5432', '東京都新宿区市谷砂土町35-6-7')
-
-
 
 CREATE TABLE tbl_cart (
   id SERIAL PRIMARY KEY,
@@ -112,8 +104,6 @@ ALTER TABLE mst_destination ADD COLUMN delete_flag BOOLEAN DEFAULT FALSE;
 SELECT * FROM tbl_cart WHERE user_id = 1 ORDER BY id;
 SELECT * FROM mst_destination ORDER BY id;
 
-ALTER TABLE tbl_cart DROP COLUMN delete_flag;
-
 
 INSERT INTO tbl_purchase_history  (user_id, product_id, product_count, price, destination_id)
   SELECT cart.user_id, cart.product_id, cart.product_count, product.price, destination.id
@@ -124,22 +114,3 @@ INSERT INTO tbl_purchase_history  (user_id, product_id, product_count, price, de
     ON cart.user_id = destination.user_id
   WHERE cart.user_id = :#{#cart.userId}
   AND destination.id = :#{#cart.destinationId}
-
-    SELECT cart.user_id, cart.product_id, cart.product_count, product.price, destination.id
-  FROM tbl_cart AS cart
-    INNER JOIN mst_product AS product
-    ON cart.product_id = product.id
-    INNER JOIN mst_destination AS destination
-    ON cart.user_id = destination.user_id
-  WHERE cart.user_id = 1
-  AND destination.id = 1
-  AND cart.delete_flag = false;
-
-SELECT history.purchased_at, product.product_name, history.price, history.product_count, dest.family_name, dest.first_name, dest.address FROM tbl_purchase_history AS history
-INNER JOIN mst_product AS product ON history.product_id = product.id
-INNER JOIN mst_destination AS dest ON history.destination_id = dest.id
-WHERE history.user_id = 1 AND history.delete_flag = false
-ORDER BY history.purchased_at;
-
-
-SELECT count(user_name) FROM mst_user WHERE user_name = 'taro_yamada';

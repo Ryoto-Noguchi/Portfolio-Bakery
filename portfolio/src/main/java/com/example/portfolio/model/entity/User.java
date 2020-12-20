@@ -41,7 +41,7 @@ public class User implements Serializable {
   private String password;
 
   @Column(name = "mail_address")
-  private String mailAdress;
+  private String mailAddress;
 
   @Column(name = "family_name")
   private String familyName;
