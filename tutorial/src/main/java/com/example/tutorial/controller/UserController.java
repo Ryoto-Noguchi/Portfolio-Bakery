@@ -3,6 +3,7 @@ package com.example.tutorial.controller;
 import com.example.tutorial.model.entity.User;
 import com.example.tutorial.model.session.LoginSession;
 import com.example.tutorial.service.UserService;
+import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  Gson gson = new Gson();
+
   @GetMapping("/")
   public String goUserRegisterPage(Model model) {
     model.addAttribute("loginSession", loginSession);
@@ -32,9 +35,15 @@ public class UserController {
   @PostMapping("/check")
   @ResponseBody
   public boolean checkUserName(@RequestBody String newUserName) {
-    boolean result = userService.findByUserName(newUserName);
-    return result;
-
+    String str = newUserName;
+    boolean bool = false;
+    int count = userService.findByUserName(str);
+    if (count > 0) { // 同一のユーザ名が既に存在していたらtrueを返してエラーを表示
+      bool = true;
+    } else {
+      bool = false; // 同一のユーザ名が存在していなければfalseを返して続行させる
+    }
+    return bool;
   }
 
   @PostMapping("/register")

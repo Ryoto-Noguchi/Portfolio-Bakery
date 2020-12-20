@@ -63,20 +63,18 @@
   <script type="text/javascript">
     $(function () {
       $('#checkUserName').on('click', function () {
-        let jsonString = {
-          "userName": $('#newUserName').val()
-        }
+        let userName = $('#newUserName').val();
         $.ajax({
           type: 'POST',
           url: '/portfolio/user/check',
-          data: JSON.stringify(jsonString),
+          data: userName,
           dataType: 'json',
           contentType: 'application/json'
         }).done(function (boolean) {
           if (boolean == true) {
             bootbox.alert('入力されたユーザ名は既に使用されています。別のユーザ名をお試しください');
           } else {
-            bootox.alert('入力されたユーザ名は使用できます');
+            bootbox.alert('入力されたユーザ名は使用できます');
           }
         }).fail(function (boolean) {
           console.log('ajax通信に失敗しました');

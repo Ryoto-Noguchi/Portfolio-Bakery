@@ -140,3 +140,6 @@ INNER JOIN mst_product AS product ON history.product_id = product.id
 INNER JOIN mst_destination AS dest ON history.destination_id = dest.id
 WHERE history.user_id = 1 AND history.delete_flag = false
 ORDER BY history.purchased_at;
+
+
+SELECT count(user_name) FROM mst_user WHERE user_name = 'taro_yamada';

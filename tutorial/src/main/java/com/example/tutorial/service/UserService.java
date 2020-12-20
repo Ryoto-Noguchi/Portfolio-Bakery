@@ -18,7 +18,7 @@ public class UserService {
 		return userRepos.findByUserNameAndPassword(userName, password);
 	}
 
-	public boolean findByUserName(String newUserName) {
+	public int findByUserName(String newUserName) {
 		return userRepos.findByUserName(newUserName);
 	}
 
