@@ -30,6 +30,11 @@ public class DestinationContrller {
   @Autowired
   UserRepository userRepos;
 
+  /**
+   * 宛先登録ページ初期表示メソッド
+   * @param model
+   * @return
+   */
   @GetMapping("")
   public String goDestinationRegisterPage(Model model) {
     Optional<User> user = userRepos.findById(loginSession.getUserId());
@@ -38,6 +43,11 @@ public class DestinationContrller {
     return "destination";
   }
 
+  /**
+   * 宛先新規登録メソッド
+   * @param destination
+   * @return
+   */
   @PostMapping("/register")
   @ResponseBody
   public int insertDestination(@RequestBody Destination destination) {

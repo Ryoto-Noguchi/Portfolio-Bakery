@@ -29,6 +29,13 @@ public class CartController {
 
   Gson gson = new Gson();
 
+
+  /**
+   * カートページ初期表示メソッド
+   * @param model
+   * @param cart
+   * @return
+   */
   @GetMapping("")
   public String goCartPage(Model model, Cart cart) { // 引数にCartインスタンスを入れないとcart.htmlのth:each="cart:${cartList}"の箇所でNoBindingResultエラーが出る
     int userId = loginSession.isLogined() ? loginSession.getUserId() : loginSession.getTmpUserId();
@@ -38,6 +45,11 @@ public class CartController {
     return "cart";
   }
 
+  /**
+   * カート追加メソッド
+   * @param form
+   * @return
+   */
   @PostMapping("/add")
   @ResponseBody
   public String add(@RequestBody CartForm form) {
@@ -57,6 +69,11 @@ public class CartController {
     return gson.toJson(cart);
   }
 
+  /**
+   * カート削除メソッド
+   * @param checkedIdList
+   * @return
+   */
   @PostMapping("/delete")
   @ResponseBody
   public int deleteCart(@RequestBody String[] checkedIdList) { // ☑️は複数選択可能なため、配列でデータを渡すため、型はString[]

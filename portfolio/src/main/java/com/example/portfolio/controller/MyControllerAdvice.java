@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class MyControllerAdvice {
 
+  /**
+   * 例外処理メソッド
+   * @param e
+   * @param response
+   * @param model
+   * @return
+   */
   @ExceptionHandler({ Exception.class })
   public String handleException(Exception e, HttpServletResponse response, Model model) {
     response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

@@ -88,6 +88,12 @@ public class IndexController {
     return "index";
   }
 
+  /**
+   * 商品詳細メソッド初期表示メソッド
+   * @param id
+   * @param model
+   * @return
+   */
   @GetMapping("/product/{id}")
   public String goProductDetail(@PathVariable("id") int id, Model model) {
     Product product = productService.findOneProduct(id);

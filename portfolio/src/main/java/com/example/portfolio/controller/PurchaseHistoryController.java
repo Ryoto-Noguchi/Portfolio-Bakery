@@ -25,6 +25,9 @@ public class PurchaseHistoryController {
   @Autowired
   private PurchaseHistoryService historyService;
 
+  /**
+   * 購入履歴ページ初期表示メソッド
+   */
   @GetMapping("")
   public String goHistoryPage(Model model) {
     int userId = loginSession.getUserId();
@@ -34,6 +37,11 @@ public class PurchaseHistoryController {
     return "purchase_history";
   }
 
+  /**
+   * 購入履歴削除メソッド
+   * @param checkedIdList
+   * @return
+   */
   @PostMapping("/delete")
   @ResponseBody
   public int deleteHistory(@RequestBody String[] checkedIdList) {

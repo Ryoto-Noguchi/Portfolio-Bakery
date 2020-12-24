@@ -66,8 +66,13 @@ public class ProductService {
     return product;
   }
 
-public String findProductNameByProductId(int productId) {
-	return productRepos.findProductNameById(productId);
-}
+  /**
+   * 商品IDを条件に商品名を取得
+   * @param productId
+   * @return
+   */
+  public String findProductNameByProductId(int productId) {
+    return productRepos.findProductNameById(productId);
+  }
 
 }

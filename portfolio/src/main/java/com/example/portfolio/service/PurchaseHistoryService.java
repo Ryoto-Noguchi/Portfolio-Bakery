@@ -32,6 +32,13 @@ public class PurchaseHistoryService {
   @Autowired
   private DestinationRepository destinationRepos;
 
+  /**
+   * 購入履歴を追加
+   *
+   * @param destinationId
+   * @param userId
+   * @return
+   */
   public int insert(int destinationId, int userId) {
     List<Cart> carts = cartRepos.findByUserIdAndDeleteFlagFalseOrderById(userId); // 論理削除されていないカートを取得
     System.out.println("カートの数 :" + carts.size());
@@ -45,6 +52,7 @@ public class PurchaseHistoryService {
 
   /**
    * 購入履歴テーブルにない商品名とアドレス情報を結合してhistoryDtoとしてControllerに返すメソッド
+   *
    * @param userId
    * @return 画面に表示するために必要な購入履歴情報
    */
@@ -76,8 +84,13 @@ public class PurchaseHistoryService {
     return historyList;
   }
 
-public int deleteHistory(int id) {
-	return historyRepos.logicalDeleteById(id);
-}
+  /**
+   * 購入履歴削除
+   * @param id
+   * @return
+   */
+  public int deleteHistory(int id) {
+    return historyRepos.logicalDeleteById(id);
+  }
 
 }

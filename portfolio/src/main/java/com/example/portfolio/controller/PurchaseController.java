@@ -33,6 +33,12 @@ public class PurchaseController {
   @Autowired
   private PurchaseHistoryService historyService;
 
+  /**
+   * 決済ページ初期表示メソッド
+   * @param model
+   * @param destination
+   * @return
+   */
   @RequestMapping(value = "", method = {RequestMethod.GET, RequestMethod.POST}) // 宛先を削除した際にGETメソッドでページのリロードを行うため、POSTメソッドと両方に対応するようにする
   public String goPurchasePage(Model model, Destination destination) {
     int userId = loginSession.getUserId();
@@ -42,6 +48,11 @@ public class PurchaseController {
     return "purchase";
   }
 
+  /**
+   * 宛先削除メソッド
+   * @param destinationId
+   * @return
+   */
   @PostMapping("/delete")
   @ResponseBody
   public int deleteDestination(@RequestBody String destinationId) {
@@ -50,6 +61,9 @@ public class PurchaseController {
     return result;
   }
 
+  /**
+   * 決済処理メソッド
+   */
   @PostMapping("/settle")
   @ResponseBody
   public int settle(@RequestBody String destinationId) {

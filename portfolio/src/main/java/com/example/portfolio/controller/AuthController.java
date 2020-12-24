@@ -29,6 +29,12 @@ public class AuthController {
   @Autowired
   private LoginSession loginSession;
 
+  /**
+   * ログインメソッド
+   * @param form
+   * @param model
+   * @return
+   */
   @PostMapping("/login")
   public String login(@RequestBody UserForm form, Model model) { // @RequestBodyを付与することによって自動的にJSONデータをJavaで扱えるようにする
     User user = userService.findUser(form.getUserName(), form.getPassword()); // ログインフォームに入力されたユーザ名とパスワードと一致するユーザを取得
@@ -49,6 +55,10 @@ public class AuthController {
     return gson.toJson(user);
   }
 
+  /**
+   * ログアウトメソッド
+   * @return
+   */
   @PostMapping("/logout")
   public String logout() {
     loginSession.setTmpUserId(null);

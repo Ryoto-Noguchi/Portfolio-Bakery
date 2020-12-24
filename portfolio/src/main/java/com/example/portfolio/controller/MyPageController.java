@@ -22,6 +22,11 @@ public class MyPageController {
   @Autowired
   private LoginSession loginSession;
 
+  /**
+   * マイページ初期表示メソッド
+   * @param model
+   * @return
+   */
   @GetMapping("")
   public String goMyPage(Model model) {
     User user = userService.findUser(loginSession.getUserName(), loginSession.getPassword());

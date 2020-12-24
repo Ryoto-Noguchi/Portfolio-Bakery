@@ -26,12 +26,22 @@ public class UserController {
 
   Gson gson = new Gson();
 
+  /**
+   * 新規ユーザー登録ページ初期表示メソッド
+   * @param model
+   * @return
+   */
   @GetMapping("")
   public String goUserRegisterPage(Model model) {
     model.addAttribute("loginSession", loginSession);
     return "user_register";
   }
 
+  /**
+   * ユーザ名重複確認メソッド
+   * @param newUserName
+   * @return
+   */
   @PostMapping("/check")
   @ResponseBody
   public boolean checkUserName(@RequestBody String newUserName) {
@@ -46,6 +56,11 @@ public class UserController {
     return bool;
   }
 
+  /**
+   * 新規ユーザー登録メソッド
+   * @param user
+   * @return
+   */
   @PostMapping("/register")
   @ResponseBody
   public boolean registerUser(@RequestBody User user) {
